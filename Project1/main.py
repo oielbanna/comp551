@@ -1,5 +1,8 @@
-import pandas as pd
-import numpy as np
+from src.Processor import Processor
 
-df = pd.read_csv('./datasets/adult/adult.data')
-print(df.head())
+adult = "./datasets/adult/adult.data"
+
+aReader = Processor(adult)
+
+for index, row in aReader.raw.head().iterrows():
+    print(row[0])
