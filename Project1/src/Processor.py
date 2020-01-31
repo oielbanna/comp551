@@ -1,4 +1,4 @@
-import numpy as np
+# import numpy as np
 import pandas as pd
 
 class Processor:
@@ -18,7 +18,7 @@ class Processor:
             X = self.raw
 
         for i, head in enumerate(self.header):
-            if(self.types[i] == np.str):
+            if(self.types[i] == str):
                  X = X[~X[head].str.contains("\?")]
 
         self.data = X
