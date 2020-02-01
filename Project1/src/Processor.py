@@ -1,6 +1,8 @@
 # import numpy as np
 import pandas as pd
 
+# https://pbpython.com/categorical-encoding.html
+
 class Processor:
     # removing all rows with '?'
     @staticmethod
