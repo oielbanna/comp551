@@ -35,4 +35,4 @@ class Processor:
     @staticmethod
     def read(path, header):
         return pd.read_csv(path,
-                  header=None, names=header, na_values="?",skipinitialspace=True)
+                  header=None, names=header, na_values="?", skipinitialspace=True)
