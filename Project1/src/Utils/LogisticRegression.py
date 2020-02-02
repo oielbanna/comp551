@@ -1,6 +1,10 @@
 import numpy as np
 
 
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+
 class LogisticRegression:
 
     def __init__(self, features_number):
@@ -25,13 +29,12 @@ class LogisticRegression:
             pass
         elif regularization == "L2":
             return np.mean(y * np.log1p(np.exp(-z)) + (1 - y) * np.log1p(np.exp(z))) + (
-                    reg_param * np.dot(np.transpose(self.weights), self.weights)) / 2.
+                    reg_param * np.dot(self.weights, self.weights)) / 2.
         # default cost calculation with no regularization
         else:
             return np.mean(y * np.log1p(np.exp(-z)) + (1 - y) * np.log1p(np.exp(z)))
 
     def fit(self, x, y):
-
         """
         This function trains the model using the given training data and updates the weights of the model accordingly.
         :param x: feature matrix encapsulating data points and the values of their features
@@ -41,10 +44,11 @@ class LogisticRegression:
         pass
 
     def predict(self, x):
-
         """
         This function predicts the class of the inputted data using the weights of the model object
         :param x: feature matrix encapsulating data points and the values of their features
         :return: predicted labels of the input data points
         """
-        pass
+        yh = sigmoid(np.dot(self.weights, x))
+        yh_classes = yh > 0.5  # sets entries to True if > 0.5
+        return yh_classes.astype(int)  # returns the predicted labels after transforming True into 1, False into 0
