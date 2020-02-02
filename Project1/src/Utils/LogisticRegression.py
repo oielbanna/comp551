@@ -66,3 +66,9 @@ class LogisticRegression:
         yh = sigmoid(np.dot(self.weights, x))
         yh_classes = yh > 0.5  # sets entries to True if > 0.5
         return yh_classes.astype(int)  # returns the predicted labels after transforming True into 1, False into 0
+
+    def __str__(self):
+        return "Weights of the model: " + self.weights
+
+    if __name__ == '__main__':
+        pass
