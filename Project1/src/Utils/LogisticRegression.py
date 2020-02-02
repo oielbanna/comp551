@@ -5,6 +5,13 @@ def sigmoid(x):
     return 1 / (1 + np.exp(-x))
 
 
+def gradient(x, y, w):
+    N, D = x.shape
+    yh = sigmoid(np.dot(x, w))
+    grad = np.dot(x.T, yh - y) / N
+    return grad
+
+
 class LogisticRegression:
 
     def __init__(self, features_number):
@@ -34,14 +41,21 @@ class LogisticRegression:
         else:
             return np.mean(y * np.log1p(np.exp(-z)) + (1 - y) * np.log1p(np.exp(z)))
 
-    def fit(self, x, y):
+    def fit(self, x, y, learning_rate=0.01, termination=1e-2):
         """
         This function trains the model using the given training data and updates the weights of the model accordingly.
         :param x: feature matrix encapsulating data points and the values of their features
         :param y: true class labels of the input data points
+        :param learning_rate: gradient descent step
+        :param termination: condition for stopping gradient descent
         :return:
         """
-        pass
+        g = np.inf
+        while np.linalg.norm(g) > termination:
+            g = gradient(x, y, self.weights)
+            self.weights = self.weights - learning_rate * g
+            # TODO consider plotting the cost vs. iters as the weights are being calculated to check for convergence
+        return self.weights
 
     def predict(self, x):
         """
