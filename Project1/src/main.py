@@ -1,7 +1,8 @@
-from Project1.src.Utils.Processor import Processor
+from Processor import Processor
 
-adult = "./datasets/adult/adult.data"
-aheader = ['age','workclass','fnlwgt','education', 'education-num', 'marital-status','occupation','relationship','race', 'sex','capital-gain','capital-loss','hours-per-week','native-country', 'salary']
+adult = "../datasets/adult/adult.data"
+aheader = ['age', 'workclass', 'fnlwgt', 'education', 'education-num', 'marital-status', 'occupation', 'relationship',
+           'race', 'sex', 'capital-gain', 'capital-loss', 'hours-per-week', 'native-country', 'salary']
 adultBinaryCols = {
     "sex": {"Male": 0, "Female": 1},
     "salary": {">50K":0, "<=50K": 1}
