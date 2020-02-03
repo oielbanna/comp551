@@ -6,8 +6,9 @@ def sigmoid(x):
 
 
 def gradient(x, y, w):
+    N, D = x.shape
     yh = sigmoid(np.dot(x, w))
-    grad = np.dot(np.transpose(x), yh - y) / x.shape[0]
+    grad = np.dot(np.transpose(x), yh - y) / N
     return grad
 
 
