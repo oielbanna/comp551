@@ -1,7 +1,8 @@
 from Project1.src.LogisticRegression import LogisticRegression
+from Project1.src.NaiveBayes import NaiveBayes
 from Project1.src.Processor import Processor
 
-adult = "./datasets/adult/adult.data"
+adult = "../datasets/adult/adult.data"
 aheader = ['age', 'workclass', 'fnlwgt', 'education', 'education-num', 'marital-status', 'occupation', 'relationship',
            'race', 'sex', 'capital-gain', 'capital-loss', 'hours-per-week', 'native-country', 'salary']
 adultBinaryCols = {
@@ -24,11 +25,14 @@ X = Processor.OHE(X)
 YHead = Y.head(25).to_numpy()
 YHead = YHead.reshape((YHead.shape[0], 1))
 
-model = LogisticRegression()
+model = NaiveBayes()
 w = model.fit(X.head(25).to_numpy(), YHead)
+
+#model = LogisticRegression()
+#w = model.fit(X.head(25).to_numpy(), YHead)
 
 X_test = X.tail(5)
 Y_test = Y.tail(5)
 
 print(model.predict(X_test.to_numpy()))
-# print(Y_test)
+print(Y_test)
