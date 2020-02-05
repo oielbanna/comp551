@@ -1,5 +1,28 @@
 from Project1.src.LogisticRegression import LogisticRegression
 from Project1.src.Processor import Processor
+import numpy as np
+
+
+def evaluate_acc(true_labels, predicted, verbose=False):
+    """
+    Outputs accuracy score of the model computed from the provided true labels and the predicted ones
+    :param true_labels: Numpy array containing true labels
+    :param predicted: Numpy array containing labels predicted by a model
+    :param verbose: boolean flag, confusion matrix is printed when set to True
+    :return: accuracy score
+    """
+    if true_labels.shape != predicted.shape:
+        raise Exception("Input label arrays do not have the same shape.")
+
+    comparison = true_labels == predicted
+    correct = np.count_nonzero(comparison)
+    accuracy = correct / true_labels.size
+
+    if verbose:
+        pass
+
+    return accuracy
+
 
 adult = "./datasets/adult/adult.data"
 aheader = ['age', 'workclass', 'fnlwgt', 'education', 'education-num', 'marital-status', 'occupation', 'relationship',
