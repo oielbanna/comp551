@@ -40,7 +40,7 @@ import matplotlib.pyplot as plt
 adult = False
 
 if adult:
-    path = "../datasets/adult/adult.data"
+    path = "./datasets/adult/adult.data"
     header = ['age', 'workclass', 'fnlwgt', 'education', 'education-num', 'marital-status', 'occupation',
               'relationship',
               'race', 'sex', 'capital-gain', 'capital-loss', 'hours-per-week', 'native-country', 'salary']
@@ -86,6 +86,7 @@ if adult:
 
 else:
     path = "../datasets/ionosphere/ionosphere.data"
+
     header = ["{}{}".format("col", x) for x in range(33 + 1)]
     header.append("signal")
     binaryCols = {

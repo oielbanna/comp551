@@ -2,12 +2,13 @@ import numpy as np
 
 
 def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
+    eps = 1e-9
+    return 1 / (1 + np.exp(-x + eps))
 
 
 def gradient(x, y, w):
     N, D = x.shape
-    yh = sigmoid(np.dot(x, w))
+    yh = sigmoid(np.matmul(x, w))
     grad = np.dot(np.transpose(x), yh - y) / N
     return grad
 
@@ -50,8 +51,10 @@ class LogisticRegression:
         :return:
         """
         # Initialize the weights array to have as many rows as input features (filled with zeros)
-        self.weights = np.zeros((x.shape[1], 1))
+        # TODO initialize weights by random sampling, NOT ZEROS
+        self.weights = np.ones((x.shape[1], 1))
         g = np.inf
+        # TODO change stopping condition to iterations instead of this
         while np.linalg.norm(g) > termination:
             g = gradient(x, y, self.weights)
             self.weights = self.weights - learning_rate * g
