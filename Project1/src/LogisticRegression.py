@@ -2,12 +2,13 @@ import numpy as np
 
 
 def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
+    eps = 1e-9
+    return 1 / (1 + np.exp(-x + eps))
 
 
 def gradient(x, y, w):
     N, D = x.shape
-    yh = sigmoid(np.dot(x, w))
+    yh = sigmoid(np.matmul(x, w))
     grad = np.dot(np.transpose(x), yh - y) / N
     return grad
 
@@ -64,7 +65,7 @@ class LogisticRegression:
         :param x: feature matrix encapsulating data points and the values of their features
         :return: predicted labels of the input data points
         """
-        yh = sigmoid(np.dot(x, self.weights))
+        yh = sigmoid(np.matmul(x, self.weights))
         yh_classes = yh > 0.5  # sets entries to True if > 0.5
         return yh_classes.astype(int)  # returns the predicted labels after transforming True into 1, False into 0
 
