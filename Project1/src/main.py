@@ -19,7 +19,18 @@ def evaluate_acc(true_labels, predicted, verbose=False):
     accuracy = correct / true_labels.size
 
     if verbose:
-        pass
+        # Scale predicted labels array by 0.5 and add to comparision array
+        # TP -> 1.5, TN -> 1, FP -> 0.5, FN -> 0
+        scaled_predicted = 0.5 * predicted
+        sum_array = np.add(scaled_predicted, comparison)
+        TPs = np.count_nonzero(sum_array == 1.5)
+        TNs = np.count_nonzero(sum_array == 1.0)
+        FPs = np.count_nonzero(sum_array == 0.5)
+        FNs = np.count_nonzero(sum_array == 0)
+
+        confusion_matrix = np.array([[TPs, FPs], [FNs, TNs]])
+
+        print("Confusion Matrix: \n" + str(confusion_matrix))
 
     return accuracy
 
