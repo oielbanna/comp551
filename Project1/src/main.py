@@ -1,34 +1,77 @@
 from Project1.src.LogisticRegression import LogisticRegression
 from Project1.src.Processor import Processor
 
-adult = "./datasets/adult/adult.data"
-aheader = ['age', 'workclass', 'fnlwgt', 'education', 'education-num', 'marital-status', 'occupation', 'relationship',
-           'race', 'sex', 'capital-gain', 'capital-loss', 'hours-per-week', 'native-country', 'salary']
-adultBinaryCols = {
-    "sex": {"Male": 0, "Female": 1},
-    "salary": {">50K": 0, "<=50K": 1}
-}
+import matplotlib.pyplot as plt
 
-"""
-    **************************************
-    SHOWING USAGE OF PROCESSOR CLASS BELOW
-"""
-# remove last col
-X = Processor.read(adult, aheader)
-X = Processor.removeMissing(X)
-X = Processor.toBinaryCol(X, adultBinaryCols)
-Y = X["salary"]
-X = X.iloc[:, :-1]
-X = Processor.OHE(X)
+adult = True
 
-YHead = Y.head(25).to_numpy()
-YHead = YHead.reshape((YHead.shape[0], 1))
+if adult:
+    path = "./datasets/adult/adult.data"
+    header = ['age', 'workclass', 'fnlwgt', 'education', 'education-num', 'marital-status', 'occupation',
+              'relationship',
+              'race', 'sex', 'capital-gain', 'capital-loss', 'hours-per-week', 'native-country', 'salary']
+    binaryCols = {
+        "sex": {"Male": 0, "Female": 1},
+        "salary": {">50K": 0, "<=50K": 1}
+    }
+    X = Processor.read(path, header)
+    X = Processor.removeMissing(X)
+    X = Processor.toBinaryCol(X, binaryCols)
+    X = X.drop(columns=["capital-gain", "capital-loss"])
 
-model = LogisticRegression()
-w = model.fit(X.head(25).to_numpy(), YHead)
 
-X_test = X.tail(5)
-Y_test = Y.tail(5)
+    # X['hours-per-week'].value_counts().plot(x='Age', linestyle="None", marker='o')
+    print(X['native-country'].value_counts())
+    X['native-country'].hist(grid=False)
 
-print(model.predict(X_test.to_numpy()))
-# print(Y_test)
+    # X['marital-status'].value_counts().plot()
+    X = Processor.normalize(X, ["fnlwgt", "hours-per-week"])
+    Y = X["salary"]
+    X = X.iloc[:, :-1]
+    # X = Processor.OHE(X)
+    plt.waitforbuttonpress()
+
+
+
+
+    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.95)
+
+    # Y_train = Y_train.to_numpy()
+    # Y_train = Y_train.reshape((Y_train.shape[0], 1))
+    #
+    # model = LogisticRegression()
+    # w = model.fit(X_train.to_numpy(), Y_train, learning_rate=0.1)
+    # print("DONE TRAINING")
+    # print(model.predict(X_test.to_numpy()))
+    # print(Y_test)
+
+    # TODO frequency distribution of each feature
+
+    # TODO see the correlation between features (pairs) in a scatter plot
+    # important features will be seperated
+
+else:
+    path = "./datasets/ionosphere/ionosphere.data"
+    header = ["{}{}".format("col", x) for x in range(33 + 1)]
+    header.append("signal")
+    binaryCols = {
+        "signal": {"g": 1, "b": 0}
+    }
+
+    X = Processor.read(path, header)
+    X = Processor.removeMissing(X)
+    X = Processor.toBinaryCol(X, binaryCols)
+    Y = X["signal"]
+    X = X.iloc[:, :-1]
+    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y)
+
+    Y_train = Y_train.to_numpy()
+    Y_train = Y_train.reshape((Y_train.shape[0], 1))
+
+    model = LogisticRegression()
+    w = model.fit(X_train.to_numpy(), Y_train)
+
+    print(model.predict(X_test.to_numpy()))
+    print(Y_test)
+
+
