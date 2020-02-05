@@ -50,8 +50,8 @@ class LogisticRegression:
         :param termination: condition for stopping gradient descent
         :return:
         """
-        # Initialize the weights array to have as many rows as input features (filled with zeros)
-        self.weights = np.zeros((x.shape[1], 1))
+        # Initialize the weights array to have as many rows as input features (filled with random values)
+        self.weights = np.random.uniform(low=-1, high=1, size=(x.shape[1], 1))
         g = np.inf
         while np.linalg.norm(g) > termination:
             g = gradient(x, y, self.weights)
