@@ -10,6 +10,7 @@ def posterior(x_test, x_train_split, x, mean, std):
     post = np.prod(likelihood, axis=1) * (x_train_split.shape[0] / x.shape[0])
     return post
 
+
 class NaiveBayes:
 
     def __init__(self):
