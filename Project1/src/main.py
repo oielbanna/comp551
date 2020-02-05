@@ -1,5 +1,39 @@
 from Project1.src.LogisticRegression import LogisticRegression
 from Project1.src.Processor import Processor
+import numpy as np
+
+
+def evaluate_acc(true_labels, predicted, verbose=False):
+    """
+    Outputs accuracy score of the model computed from the provided true labels and the predicted ones
+    :param true_labels: Numpy array containing true labels
+    :param predicted: Numpy array containing labels predicted by a model
+    :param verbose: boolean flag, confusion matrix is printed when set to True
+    :return: accuracy score
+    """
+    if true_labels.shape != predicted.shape:
+        raise Exception("Input label arrays do not have the same shape.")
+
+    comparison = true_labels == predicted
+    correct = np.count_nonzero(comparison)
+    accuracy = correct / true_labels.size
+
+    if verbose:
+        # Scale predicted labels array by 0.5 and add to comparision array
+        # TP -> 1.5, TN -> 1, FP -> 0.5, FN -> 0
+        scaled_predicted = 0.5 * predicted
+        sum_array = np.add(scaled_predicted, comparison)
+        TPs = np.count_nonzero(sum_array == 1.5)
+        TNs = np.count_nonzero(sum_array == 1.0)
+        FPs = np.count_nonzero(sum_array == 0.5)
+        FNs = np.count_nonzero(sum_array == 0)
+
+        confusion_matrix = np.array([[TPs, FPs], [FNs, TNs]])
+
+        print("Confusion Matrix: \n" + str(confusion_matrix))
+
+    return accuracy
+
 
 import matplotlib.pyplot as plt
 
