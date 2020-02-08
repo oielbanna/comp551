@@ -38,7 +38,6 @@ def evaluate_acc(true_labels, predicted, verbose=False):
 
     return accuracy
 
-
 import matplotlib.pyplot as plt
 
 adult = True
@@ -55,33 +54,37 @@ if adult:
     X = Processor.read(path, header)
     X = Processor.removeMissing(X)
     X = Processor.toBinaryCol(X, binaryCols)
-    X = X.drop(columns=["capital-gain", "capital-loss"])
 
+    # print(X['native-country'].value_counts())
 
-    # X['hours-per-week'].value_counts().plot(x='Age', linestyle="None", marker='o')
-    print(X['native-country'].value_counts())
-    X['native-country'].hist(grid=False)
-
-    # X['marital-status'].value_counts().plot()
     X = Processor.normalize(X, ["fnlwgt", "hours-per-week"])
     Y = X["salary"]
     X = X.iloc[:, :-1]
-    # X = Processor.OHE(X)
-    plt.waitforbuttonpress()
+    X = Processor.OHE(X)
+
+    countryCols = ["native-country_Cambodia", "native-country_England", "native-country_Puerto-Rico", "native-country_Canada", "native-country_Outlying-US(Guam-USVI-etc)", "native-country_India", "native-country_Japan", "native-country_Greece", "native-country_South", "native-country_China", "native-country_Cuba", "native-country_Iran", "native-country_Honduras", "native-country_Italy", "native-country_Poland", "native-country_Jamaica", "native-country_Vietnam", "native-country_Portugal", "native-country_Ireland", "native-country_France", "native-country_Dominican-Republic", "native-country_Laos", "native-country_Ecuador", "native-country_Taiwan", "native-country_Haiti", "native-country_Columbia", "native-country_Hungary", "native-country_Guatemala", "native-country_Nicaragua", "native-country_Scotland", "native-country_Thailand", "native-country_Yugoslavia", "native-country_El-Salvador", "native-country_Trinadad&Tobago", "native-country_Peru", "native-country_Hong", "native-country_Holand-Netherlands"]
+
+    X = X.drop(columns=(["capital-gain", "capital-loss", "education-num"] + countryCols))
+
+    print(X.shape)
+    # X['hours-per-week'].value_counts().plot(x='Age', linestyle="None", marker='o')
+
+    # X['native-country'].hist(grid=False)
+
+    # X.plot.scatter(x="relationship", y="age",  c='salary', colormap='autumn')
 
 
 
+    # plt.waitforbuttonpress()
 
-    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.95)
+    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.85)
 
-    # Y_train = Y_train.to_numpy()
-    # Y_train = Y_train.reshape((Y_train.shape[0], 1))
-    #
-    # model = LogisticRegression()
-    # w = model.fit(X_train.to_numpy(), Y_train, learning_rate=0.1)
-    # print("DONE TRAINING")
-    # print(model.predict(X_test.to_numpy()))
-    # print(Y_test)
+    model = LogisticRegression()
+    w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train), max_gradient=0.8, learning_rate=0.05)
+
+    print("DONE TRAINING")
+    print(evaluate_acc(Processor.ToNumpyCol(Y_test), model.predict(X_test.to_numpy())))
+
 
     # TODO frequency distribution of each feature
 
@@ -101,7 +104,7 @@ else:
     X = Processor.toBinaryCol(X, binaryCols)
     Y = X["signal"]
     X = X.iloc[:, :-1]
-    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y)
+    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.1)
 
     Y_train = Y_train.to_numpy()
     Y_train = Y_train.reshape((Y_train.shape[0], 1))
@@ -110,6 +113,11 @@ else:
     w = model.fit(X_train.to_numpy(), Y_train)
 
     print(model.predict(X_test.to_numpy()))
-    print(Y_test)
+    # print(Y_test)
+
+    Y_test = Y_test.to_numpy()
+    Y_test = Y_test.reshape((Y_test.shape[0], 1))
+    print(evaluate_acc(Y_test, model.predict(X_test.to_numpy()), verbose=True))
+
 
 

@@ -19,7 +19,7 @@ class Processor:
     @staticmethod
     def fillMissing(X):
         raise Exception("Method unimplemented.")
-        obj_df = obj_df.fillna({"num_doors": "four"})
+        X = X.fillna({"num_doors": "four"})
 
     @staticmethod
     def toBinaryCol(X, dic):
@@ -59,3 +59,9 @@ class Processor:
             return pd.read_csv(path, na_values="?", skipinitialspace=True)
         return pd.read_csv(path,
                   header=None, names=header, na_values="?", skipinitialspace=True)
+
+
+    @staticmethod
+    def ToNumpyCol(X):
+        X = X.to_numpy()
+        return X.reshape((X.shape[0], 1))
