@@ -29,8 +29,12 @@ def evaluate_acc(true_labels, predicted, verbose=False):
         FNs = np.count_nonzero(sum_array == 0)
 
         confusion_matrix = np.array([[TPs, FPs], [FNs, TNs]])
-
+        precision = TPs / (TPs + FPs)
+        recall = TPs / (TPs + FNs)
         print("Confusion Matrix: \n" + str(confusion_matrix))
+        print("Precision: " + str(precision))
+        print("Recall: " + str(recall))
+        print("F1 Score: " + str(2 * (precision * recall) / (precision + recall)))
 
     return accuracy
 
