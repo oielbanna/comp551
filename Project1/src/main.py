@@ -2,6 +2,7 @@ from Project1.src.LogisticRegression import LogisticRegression
 from Project1.src.NaiveBayes import NaiveBayes
 from Project1.src.Processor import Processor
 from Project1.src.Clean import Clean
+from Project1.src.CrossValidation import cross_validation
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -77,13 +78,15 @@ else:
 
     [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.80)
 
-    model = NaiveBayes()
-    w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train))
+    model = LogisticRegression()
+   # w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train))
 
-    b = model.predict(X_test.to_numpy())
-    b = b.reshape((b.shape[0], 1))
+    #b = model.predict(X_test.to_numpy())
+    #b = b.reshape((b.shape[0], 1))
 
-    print(evaluate_acc(Processor.ToNumpyCol(Y_test), b, verbose=True))
+    print(cross_validation(5, X_train.to_numpy(),Processor.ToNumpyCol(Y_train), model))
+
+    #print(evaluate_acc(Processor.ToNumpyCol(Y_test), b, verbose=True))
 
 
 
