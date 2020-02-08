@@ -1,4 +1,5 @@
 from Project1.src.LogisticRegression import LogisticRegression
+from Project1.src.NaiveBayes import NaiveBayes
 from Project1.src.Processor import Processor
 import numpy as np
 
@@ -40,7 +41,7 @@ import matplotlib.pyplot as plt
 adult = False
 
 if adult:
-    path = "./datasets/adult/adult.data"
+    path = "../datasets/adult/adult.data"
     header = ['age', 'workclass', 'fnlwgt', 'education', 'education-num', 'marital-status', 'occupation',
               'relationship',
               'race', 'sex', 'capital-gain', 'capital-loss', 'hours-per-week', 'native-country', 'salary']
@@ -55,29 +56,41 @@ if adult:
 
 
     # X['hours-per-week'].value_counts().plot(x='Age', linestyle="None", marker='o')
-    print(X['native-country'].value_counts())
-    X['native-country'].hist(grid=False)
+   # print(X['native-country'].value_counts())
+    #X['native-country'].hist(grid=False)
 
     # X['marital-status'].value_counts().plot()
     X = Processor.normalize(X, ["fnlwgt", "hours-per-week"])
     Y = X["salary"]
     X = X.iloc[:, :-1]
-    # X = Processor.OHE(X)
-    plt.waitforbuttonpress()
+    X = Processor.OHE(X)
+    #plt.waitforbuttonpress()
 
 
 
 
     [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.95)
 
-    # Y_train = Y_train.to_numpy()
-    # Y_train = Y_train.reshape((Y_train.shape[0], 1))
+    Y_train = Y_train.to_numpy()
+    Y_train = Y_train.reshape((Y_train.shape[0], 1))
     #
     # model = LogisticRegression()
     # w = model.fit(X_train.to_numpy(), Y_train, learning_rate=0.1)
     # print("DONE TRAINING")
     # print(model.predict(X_test.to_numpy()))
-    # print(Y_test)
+    #print(X_train)
+
+
+    model = NaiveBayes()
+    # model = LogisticRegression()
+    w = model.fit(X_train.to_numpy(), Y_train)
+
+    # print(model.predict(X_test.to_numpy()))
+    Y_test = Y_test.to_numpy()
+    Y_test = Y_test.reshape((Y_test.shape[0], 1))
+    col_result = model.predict(X_test.to_numpy())
+    col_result = col_result.reshape(Y_test.shape[0], 1)
+    print(evaluate_acc(Y_test, col_result, verbose=True))
 
     # TODO frequency distribution of each feature
 
@@ -96,17 +109,25 @@ else:
     X = Processor.read(path, header)
     X = Processor.removeMissing(X)
     X = Processor.toBinaryCol(X, binaryCols)
+    X = X.drop(columns=['col1'])
+    X = X.drop(columns=['col0'])
     Y = X["signal"]
     X = X.iloc[:, :-1]
+    X = Processor.OHE(X)
     [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y)
 
     Y_train = Y_train.to_numpy()
     Y_train = Y_train.reshape((Y_train.shape[0], 1))
 
-    model = LogisticRegression()
+    model = NaiveBayes()
+    #model = LogisticRegression()
     w = model.fit(X_train.to_numpy(), Y_train)
 
-    print(model.predict(X_test.to_numpy()))
-    print(Y_test)
+    #print(model.predict(X_test.to_numpy()))
+    Y_test = Y_test.to_numpy()
+    Y_test = Y_test.reshape((Y_test.shape[0], 1))
+    col_result = model.predict(X_test.to_numpy())
+    col_result = col_result.reshape(Y_test.shape[0], 1)
+    print(evaluate_acc(Y_test, col_result, verbose=True))
 
 

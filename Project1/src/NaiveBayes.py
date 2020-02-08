@@ -13,11 +13,12 @@ def posterior(x_test, x_train_split, x, mean, std):
 
 class NaiveBayes:
 
-    def __init__(self):
+    def __init__(self, alpha=1.0):
         """
         This initializes a LogisticRegression object with null weights (empty list).
         """
         self.split = {}
+        self.alpha = alpha
 
     def fit(self, x, y):
         """
@@ -41,28 +42,43 @@ class NaiveBayes:
         for i in range(y.shape[0]):
             if(y[i] == 0):
                 if(zero == True):
-                    split[0] = x[i,:].reshape(x[i,:].shape[0],1)    #reshape into a column
+                    split[0] = x[i, :].reshape(x[i, :].shape[0], 1)    #reshape into a column
                     zero = False
                 else:
-                    split[0] = np.append(split[0], x[i,:].reshape(x[i,:].shape[0],1), axis=1)   #append column-wise
+                    split[0] = np.append(split[0], x[i, :].reshape(x[i, :].shape[0], 1), axis=1)   #append column-wise
             elif(y[i] == 1):
                 if(one == True):
-                    split[1] = x[i,:].reshape(x[i,:].shape[0],1)
+                    split[1] = x[i, :].reshape(x[i, :].shape[0],1)
                     one = False
                 else:
-                    split[1] = np.append(split[1], x[i,:].reshape(x[i,:].shape[0],1), axis=1)
+                    split[1] = np.append(split[1], x[i, :].reshape(x[i, :].shape[0], 1), axis=1)
 
         self.split = split
+        self.split[0] = self.split[0].T
+        self.split[1] = self.split[1].T
+
+        self.priors = self.split[0].shape[0]/self.x.shape[0]
+        count = np.array([np.array(i).sum(axis=0) for i in split]) + self.alpha
+        self.feature_prob = count/count.sum(axis=1)[np.newaxis].T
+
+
+        '''
         #Compute means and standard deviations for Gaussian Distribution
         self.mean_one = np.mean(split[1], axis=0)
         self.mean_zero = np.mean(split[0], axis=0)
         self.std_one = np.std(split[1], axis=0)
-        self.std_zero = np.std(split[0], axis=0)
+        self.std_zero = np.std(split[0], axis=0)'''
 
-        #print(x[2,:].reshape(x[2,:].shape[0],1))
+        #print(self.std_one)
+        #print(self.std_zero)
+        #print(self.mean_one)
+        #print(self.mean_zero)
         #print(split[0])
         #print(split[1])
         #print(y)
+
+    def predict_probs(self, x_test):
+        pass
 
     def predict(self, x_test):
         """
