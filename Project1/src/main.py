@@ -1,7 +1,8 @@
 from Project1.src.LogisticRegression import LogisticRegression
 from Project1.src.Processor import Processor
+from Project1.src.Clean import Clean
 import numpy as np
-
+import matplotlib.pyplot as plt
 
 def evaluate_acc(true_labels, predicted, verbose=False):
     """
@@ -38,35 +39,42 @@ def evaluate_acc(true_labels, predicted, verbose=False):
 
     return accuracy
 
+adult = True
 
-adult = "./datasets/adult/adult.data"
-aheader = ['age', 'workclass', 'fnlwgt', 'education', 'education-num', 'marital-status', 'occupation', 'relationship',
-           'race', 'sex', 'capital-gain', 'capital-loss', 'hours-per-week', 'native-country', 'salary']
-adultBinaryCols = {
-    "sex": {"Male": 0, "Female": 1},
-    "salary": {">50K": 0, "<=50K": 1}
-}
+if adult:
+    path = "./datasets/adult/adult.data"
+    header = ['age', 'workclass', 'fnlwgt', 'education', 'education-num', 'marital-status', 'occupation',
+              'relationship',
+              'race', 'sex', 'capital-gain', 'capital-loss', 'hours-per-week', 'native-country', 'salary']
 
-"""
-    **************************************
-    SHOWING USAGE OF PROCESSOR CLASS BELOW
-"""
-# remove last col
-X = Processor.read(adult, aheader)
-X = Processor.removeMissing(X)
-X = Processor.toBinaryCol(X, adultBinaryCols)
-Y = X["salary"]
-X = X.iloc[:, :-1]
-X = Processor.OHE(X)
+    All = Processor.read(path, header)
 
-YHead = Y.head(25).to_numpy()
-YHead = YHead.reshape((YHead.shape[0], 1))
+    [X, Y] = Clean.adult(All)
 
-model = LogisticRegression()
-w = model.fit(X.head(25).to_numpy(), YHead)
+    print(X.shape)
 
-X_test = X.tail(5)
-Y_test = Y.tail(5)
+    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
 
-print(model.predict(X_test.to_numpy()))
-# print(Y_test)
+    model = LogisticRegression()
+    w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train), max_gradient=0.8, learning_rate=0.05)
+
+    print("DONE TRAINING")
+    print(evaluate_acc(Processor.ToNumpyCol(Y_test), model.predict(X_test.to_numpy())))
+
+else:
+    path = "./datasets/ionosphere/ionosphere.data"
+    header = ["{}{}".format("col", x) for x in range(33 + 1)]
+    header.append("signal")
+
+    All = Processor.read(path, header)
+
+    [X, Y] = Clean.Ionosphere(All)
+    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
+
+    model = LogisticRegression()
+    w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train))
+
+    print(evaluate_acc(Processor.ToNumpyCol(Y_test), model.predict(X_test.to_numpy()), verbose=True))
+
+
+
