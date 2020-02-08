@@ -1,8 +1,9 @@
 from Project1.src.LogisticRegression import LogisticRegression
 from Project1.src.NaiveBayes import NaiveBayes
 from Project1.src.Processor import Processor
+from Project1.src.Clean import Clean
 import numpy as np
-
+import matplotlib.pyplot as plt
 
 def evaluate_acc(true_labels, predicted, verbose=False):
     """
@@ -39,9 +40,6 @@ def evaluate_acc(true_labels, predicted, verbose=False):
 
     return accuracy
 
-
-import matplotlib.pyplot as plt
-
 adult = False
 
 if adult:
@@ -49,89 +47,42 @@ if adult:
     header = ['age', 'workclass', 'fnlwgt', 'education', 'education-num', 'marital-status', 'occupation',
               'relationship',
               'race', 'sex', 'capital-gain', 'capital-loss', 'hours-per-week', 'native-country', 'salary']
-    binaryCols = {
-        "sex": {"Male": 0, "Female": 1},
-        "salary": {">50K": 0, "<=50K": 1}
-    }
-    X = Processor.read(path, header)
-    X = Processor.removeMissing(X)
-    X = Processor.toBinaryCol(X, binaryCols)
-    X = X.drop(columns=["capital-gain", "capital-loss"])
 
+    All = Processor.read(path, header)
 
-    # X['hours-per-week'].value_counts().plot(x='Age', linestyle="None", marker='o')
-   # print(X['native-country'].value_counts())
-    #X['native-country'].hist(grid=False)
+    [X, Y] = Clean.adult(All)
 
-    # X['marital-status'].value_counts().plot()
-    X = Processor.normalize(X, ["fnlwgt", "hours-per-week"])
-    Y = X["salary"]
-    X = X.iloc[:, :-1]
-    X = Processor.OHE(X)
-    #plt.waitforbuttonpress()
+    print(X.shape)
 
-
-
-
-    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.95)
-
-    Y_train = Y_train.to_numpy()
-    Y_train = Y_train.reshape((Y_train.shape[0], 1))
-    #
-    # model = LogisticRegression()
-    # w = model.fit(X_train.to_numpy(), Y_train, learning_rate=0.1)
-    # print("DONE TRAINING")
-    # print(model.predict(X_test.to_numpy()))
-    #print(X_train)
-
+    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
 
     model = NaiveBayes()
-    # model = LogisticRegression()
-    w = model.fit(X_train.to_numpy(), Y_train)
+    w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train))
 
-    # print(model.predict(X_test.to_numpy()))
-    Y_test = Y_test.to_numpy()
-    Y_test = Y_test.reshape((Y_test.shape[0], 1))
-    col_result = model.predict(X_test.to_numpy())
-    col_result = col_result.reshape(Y_test.shape[0], 1)
-    print(evaluate_acc(Y_test, col_result, verbose=True))
+    b = model.predict(X_test.to_numpy())
+    b = b.reshape((b.shape[0], 1))
 
-    # TODO frequency distribution of each feature
-
-    # TODO see the correlation between features (pairs) in a scatter plot
-    # important features will be seperated
+    print("DONE TRAINING")
+    print(evaluate_acc(Processor.ToNumpyCol(Y_test), b))
 
 else:
     path = "../datasets/ionosphere/ionosphere.data"
 
     header = ["{}{}".format("col", x) for x in range(33 + 1)]
     header.append("signal")
-    binaryCols = {
-        "signal": {"g": 1, "b": 0}
-    }
 
-    X = Processor.read(path, header)
-    X = Processor.removeMissing(X)
-    X = Processor.toBinaryCol(X, binaryCols)
-    X = X.drop(columns=['col1'])
-    X = X.drop(columns=['col0'])
-    Y = X["signal"]
-    X = X.iloc[:, :-1]
-    X = Processor.OHE(X)
-    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y)
+    All = Processor.read(path, header)
 
-    Y_train = Y_train.to_numpy()
-    Y_train = Y_train.reshape((Y_train.shape[0], 1))
+    [X, Y] = Clean.Ionosphere(All)
+    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.80)
 
     model = NaiveBayes()
-    #model = LogisticRegression()
-    w = model.fit(X_train.to_numpy(), Y_train)
+    w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train))
 
-    #print(model.predict(X_test.to_numpy()))
-    Y_test = Y_test.to_numpy()
-    Y_test = Y_test.reshape((Y_test.shape[0], 1))
-    col_result = model.predict(X_test.to_numpy())
-    col_result = col_result.reshape(Y_test.shape[0], 1)
-    print(evaluate_acc(Y_test, col_result, verbose=True))
+    b = model.predict(X_test.to_numpy())
+    b = b.reshape((b.shape[0], 1))
+
+    print(evaluate_acc(Processor.ToNumpyCol(Y_test), b, verbose=True))
+
 
 

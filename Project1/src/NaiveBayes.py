@@ -57,17 +57,15 @@ class NaiveBayes:
         self.split[0] = self.split[0].T
         self.split[1] = self.split[1].T
 
-        self.priors = self.split[0].shape[0]/self.x.shape[0]
-        count = np.array([np.array(i).sum(axis=0) for i in split]) + self.alpha
-        self.feature_prob = count/count.sum(axis=1)[np.newaxis].T
+        #self.priors = self.split[0].shape[0]/self.x.shape[0]
+        #count = np.array([np.array(i).sum(axis=0) for i in split]) + self.alpha
+        #self.feature_prob = count/count.sum(axis=0)[np.newaxis].T
 
-
-        '''
         #Compute means and standard deviations for Gaussian Distribution
         self.mean_one = np.mean(split[1], axis=0)
         self.mean_zero = np.mean(split[0], axis=0)
         self.std_one = np.std(split[1], axis=0)
-        self.std_zero = np.std(split[0], axis=0)'''
+        self.std_zero = np.std(split[0], axis=0)
 
         #print(self.std_one)
         #print(self.std_zero)
@@ -78,7 +76,7 @@ class NaiveBayes:
         #print(y)
 
     def predict_probs(self, x_test):
-        pass
+        return [(self.feature_prob * x).sum(axis=1) + self.prior for x in x_test]
 
     def predict(self, x_test):
         """
@@ -90,3 +88,4 @@ class NaiveBayes:
         post_zero = posterior(x_test, self.split[0], self.x, self.mean_zero, self.std_zero)
 
         return 1*(post_one > post_zero)
+        #return np.argmax(self.predict_probs(x_test), axis=1)
