@@ -39,7 +39,7 @@ def evaluate_acc(true_labels, predicted, verbose=False):
 
     return accuracy
 
-adult = True
+adult = False
 
 if adult:
     path = "./datasets/adult/adult.data"
@@ -69,7 +69,7 @@ else:
     All = Processor.read(path, header)
 
     [X, Y] = Clean.Ionosphere(All)
-    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
+    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.7)
 
     model = LogisticRegression()
     w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train))
