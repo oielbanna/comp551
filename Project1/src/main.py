@@ -74,6 +74,7 @@ else:
     All = Processor.read(path, header)
 
     [X, Y] = Clean.Ionosphere(All)
+
     [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.80)
 
     model = NaiveBayes()
