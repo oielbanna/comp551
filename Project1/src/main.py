@@ -4,6 +4,7 @@ from Project1.src.Clean import Clean
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def evaluate_acc(true_labels, predicted, verbose=False):
     """
     Outputs accuracy score of the model computed from the provided true labels and the predicted ones
@@ -38,6 +39,7 @@ def evaluate_acc(true_labels, predicted, verbose=False):
         print("F1 Score: " + str(2 * (precision * recall) / (precision + recall)))
 
     return accuracy
+
 
 adult = False
 
@@ -75,6 +77,3 @@ else:
     w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train))
 
     print(evaluate_acc(Processor.ToNumpyCol(Y_test), model.predict(X_test.to_numpy()), verbose=True))
-
-
-

@@ -5,8 +5,16 @@ dependencies:
   - blas=1.0
   - ca-certificates=2020.1.1
   - certifi=2019.11.28
+  - cycler=0.10.0
+  - freetype=2.9.1
   - icc_rt=2019.0.0
+  - icu=58.2
   - intel-openmp=2019.4
+  - jpeg=9b
+  - kiwisolver=1.1.0
+  - libpng=1.6.37
+  - matplotlib=3.1.3
+  - matplotlib-base=3.1.3
   - mkl=2019.4
   - mkl-service=2.3.0
   - mkl_fft=1.0.15
@@ -15,17 +23,23 @@ dependencies:
   - numpy-base=1.18.1
   - openssl=1.1.1d
   - pip=20.0.2
+  - pyparsing=2.4.6
+  - pyqt=5.9.2
   - python=3.7.6
+  - python-dateutil=2.8.1
+  - qt=5.9.7
   - setuptools=45.1.0
+  - sip=4.19.8
   - six=1.14.0
   - sqlite=3.30.1
+  - tornado=6.0.3
   - vc=14.1
   - vs2015_runtime=14.16.27012
   - wheel=0.34.1
   - wincertstore=0.2
+  - zlib=1.2.11
   - pip:
       - pandas==1.0.0
-      - python-dateutil==2.8.1
       - pytz==2019.3
 prefix: C:\Users\myous\Anaconda3\envs\comp551
 
