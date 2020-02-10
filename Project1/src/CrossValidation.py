@@ -17,9 +17,12 @@ def cross_validation(k_fold, x, y, model, **kwargs):
     # list to hold the accuracy
     accuracy_scores = []
 
+    # Create pseudorandom list of indices for shuffling the input arrays (achieve randomized cross validation)
+    shuffle = np.random.RandomState().permutation(len(x))
+
     # Split the data array into k sub-arrays (folds)
-    folds_x = np.array_split(x, k_fold)
-    folds_y = np.array_split(y, k_fold)
+    folds_x = np.array_split(x[shuffle], k_fold)
+    folds_y = np.array_split(y[shuffle], k_fold)
 
     for i in range(len(folds_x)):
         test_x, test_y = folds_x[i], folds_y[i]
