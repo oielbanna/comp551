@@ -66,8 +66,7 @@ class LogisticRegression:
             self.weights = self.weights - learning_rate * g
             iterations += 1
 
-        return [self.weights, g, iterations]
-
+        return [self.weights, np.linalg.norm(g), iterations]
 
     def predict(self, x):
         """
