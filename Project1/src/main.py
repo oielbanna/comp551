@@ -6,7 +6,7 @@ from Project1.src.CrossValidation import cross_validation
 import numpy as np
 import matplotlib.pyplot as plt
 
-ds = "phishing"
+ds = "ttt"
 
 if ds == "adult":
     path = "./datasets/adult/adult.data"
@@ -51,7 +51,9 @@ elif ds == "phishing":
               "google", "links-to-page", "stats", "result"]
     All = Processor.read(path, header)
 
-    [X, Y] = Clean.phishing(all)
+    [X, Y] = Clean.phishing(All)
+
+    print(X.shape)
 
     [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
 
@@ -60,5 +62,17 @@ elif ds == "phishing":
     print(cross_validation(5, X_train.to_numpy(), Processor.ToNumpyCol(Y_train), model))
 
 elif ds == "ttt":
+    path = "./datasets/tictactoe/tic-tac-toe.data"
     header = ["tl", "tm", "tr", "ml", "mm", "mr", "bl", "bm", "br", "result"]
 
+    All = Processor.read(path, header)
+
+    [X, Y] = Clean.ttt(All)
+
+    print(X.shape)
+
+    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
+
+    model = NaiveBayes()
+
+    print(cross_validation(5, X_train.to_numpy(), Processor.ToNumpyCol(Y_train), model))

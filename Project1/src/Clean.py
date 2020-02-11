@@ -1,6 +1,8 @@
 from Project1.src.Processor import Processor
-class Clean:
+import matplotlib.pyplot as plt
 
+
+class Clean:
     @staticmethod
     def adult(X):
         binaryCols = {
@@ -60,7 +62,30 @@ class Clean:
     def phishing(X):
         X = X.copy()
 
+        header = ["ip", "url-length", "short-service", "at", "dslash", "prefix-suffix", "subdomain", "ssl", "domain-len",
+              "favicon", "port", "https", "request-url", "url-anchor", "link-tags", "sfh", "email", "abnormal-url",
+              "redirect", "mouseover", "right-click", "popup", "iframe", "domain-age", "dns", "web-traffic", "page-rank",
+              "google", "links-to-page", "stats", "result"]
+
+        X = Processor.normalize(X, cols=header)
+        X = X.drop(columns=["dslash", "favicon", "port", "https", "redirect", "mouseover", "iframe", "dns", "stats"])
+
+        # X['iframe'].hist(grid=False)
+
         Y = X["result"]
         X = X.iloc[:, :-1]
+        print(X.dtypes)
+        return [X, Y]
+
+    @staticmethod
+    def ttt(X):
+        binaryCols = {
+            "result": {"positive": 1, "negative": 0}
+        }
+        X = X.copy()
+        X = Processor.toBinaryCol(X, binaryCols)
+        Y = X["result"]
+        X = X.drop(columns=["result"])
+        X = Processor.OHE(X)
 
         return [X, Y]
