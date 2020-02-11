@@ -62,7 +62,7 @@ class Clean:
     def mam(X):
         X = X.copy()
         X = Processor.removeMissing(X)
-        X = Processor.OHE(X, cols=["BI-RADS", "shape", "margin", "denisty"])
+        X = Processor.OHE(X, cols=["BI-RADS", "shape", "margin", "density"])
 
         Y = X["result"]
         X = X.drop(columns=["result"])

@@ -6,7 +6,7 @@ from Project1.src.CrossValidation import cross_validation
 import numpy as np
 import matplotlib.pyplot as plt
 
-ds = "mam"
+ds = "ionosphere"
 
 if ds == "adult":
     path = "../datasets/adult/adult.data"
@@ -31,7 +31,7 @@ if ds == "adult":
     print(cross_validation(5, X_train.to_numpy(), Processor.ToNumpyCol(Y_train), model))
 
 elif ds == "ionosphere":
-    path = "../datasets/ionosphere/ionosphere.data"
+    path = "./datasets/ionosphere/ionosphere.data"
 
     header = ["{}{}".format("col", x) for x in range(33 + 1)]
     header.append("signal")
@@ -48,18 +48,16 @@ elif ds == "ionosphere":
 
 elif ds == "mam":
     path = "./datasets/mam/mam.data"
-    header = ["BI-RADS", "age", "shape", "margin", "denisty", "result"]
+    header = ["BI-RADS", "age", "shape", "margin", "density", "result"]
     All = Processor.read(path, header)
 
     [X, Y] = Clean.mam(All)
 
-    print(X)
-
     [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
 
-    model = LogisticRegression()
+    model = NaiveBayes()
 
-    print(cross_validation(5, X_train.to_numpy(), Processor.ToNumpyCol(Y_train), model, max_iters=100000))
+    print(cross_validation(5, X_train.to_numpy(), Processor.ToNumpyCol(Y_train), model))
 
 elif ds == "ttt":
     path = "./datasets/tictactoe/tic-tac-toe.data"
@@ -73,7 +71,7 @@ elif ds == "ttt":
 
     [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
 
-    model = LogisticRegression()
+    model = NaiveBayes()
     if type(model) == NaiveBayes:
         X_train = X_train.astype('float64')
         Y_train = Y_train.astype('float64')
