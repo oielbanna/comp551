@@ -59,21 +59,13 @@ class Clean:
         return [X, Y]
 
     @staticmethod
-    def phishing(X):
+    def mam(X):
         X = X.copy()
-
-        header = ["ip", "url-length", "short-service", "at", "dslash", "prefix-suffix", "subdomain", "ssl", "domain-len",
-              "favicon", "port", "https", "request-url", "url-anchor", "link-tags", "sfh", "email", "abnormal-url",
-              "redirect", "mouseover", "right-click", "popup", "iframe", "domain-age", "dns", "web-traffic", "page-rank",
-              "google", "links-to-page", "stats", "result"]
-
-        X = Processor.normalize(X, cols=header)
-        X = X.drop(columns=["dslash", "favicon", "port", "https", "redirect", "mouseover", "iframe", "dns", "stats"])
-
-        # X['iframe'].hist(grid=False)
+        X = Processor.removeMissing(X)
+        X = Processor.OHE(X, cols=["BI-RADS", "shape", "margin", "denisty"])
 
         Y = X["result"]
-        X = X.iloc[:, :-1]
+        X = X.drop(columns=["result"])
         return [X, Y]
 
     @staticmethod

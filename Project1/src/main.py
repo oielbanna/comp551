@@ -6,7 +6,7 @@ from Project1.src.CrossValidation import cross_validation
 import numpy as np
 import matplotlib.pyplot as plt
 
-ds = "phishing"
+ds = "mam"
 
 if ds == "adult":
     path = "../datasets/adult/adult.data"
@@ -46,23 +46,20 @@ elif ds == "ionosphere":
 
     print(cross_validation(5, X_train.to_numpy(), Processor.ToNumpyCol(Y_train), model))
 
-elif ds == "phishing":
-    path = "./datasets/phishing/phishing.arff"
-    header = ["ip", "url-length", "short-service", "at", "dslash", "prefix-suffix", "subdomain", "ssl", "domain-len",
-              "favicon", "port", "https", "request-url", "url-anchor", "link-tags", "sfh", "email", "abnormal-url",
-              "redirect", "mouseover", "right-click", "popup", "iframe", "domain-age", "dns", "web-traffic", "page-rank",
-              "google", "links-to-page", "stats", "result"]
+elif ds == "mam":
+    path = "./datasets/mam/mam.data"
+    header = ["BI-RADS", "age", "shape", "margin", "denisty", "result"]
     All = Processor.read(path, header)
 
-    [X, Y] = Clean.phishing(All)
+    [X, Y] = Clean.mam(All)
 
-    print(X.shape)
+    print(X)
 
     [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
 
     model = LogisticRegression()
 
-    print(cross_validation(5, X_train.to_numpy(), Processor.ToNumpyCol(Y_train), model))
+    print(cross_validation(5, X_train.to_numpy(), Processor.ToNumpyCol(Y_train), model, max_iters=100000))
 
 elif ds == "ttt":
     path = "./datasets/tictactoe/tic-tac-toe.data"
