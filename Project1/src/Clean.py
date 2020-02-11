@@ -10,7 +10,6 @@ class Clean:
             "salary": {">50K": 0, "<=50K": 1}
         }
         X = X.copy()
-
         X = Processor.removeMissing(X)
         X = Processor.toBinaryCol(X, binaryCols)
 
@@ -34,13 +33,6 @@ class Clean:
 
         X = X.drop(columns=(["capital-gain", "capital-loss", "education-num"] + countryCols))
 
-        # X['hours-per-week'].value_counts().plot(x='Age', linestyle="None", marker='o')
-
-        # X['native-country'].hist(grid=False)
-
-        # X.plot.scatter(x="relationship", y="age",  c='salary', colormap='autumn')
-        # plt.waitforbuttonpress()
-
         return [X, Y]
 
 
@@ -51,7 +43,7 @@ class Clean:
         }
         X = X.copy()
         X = Processor.removeMissing(X)
-        X = X.drop(columns=['col0', 'col1'])
+        X = X.drop(columns=['col0', 'col1', "col13"])
         X = Processor.toBinaryCol(X, binaryCols)
         Y = X["signal"]
         X = X.iloc[:, :-1]
