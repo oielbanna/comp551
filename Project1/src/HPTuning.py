@@ -29,7 +29,7 @@ def df_to_table(pandas_frame, export_filename):
 
 
 # Use the following variable to determine which data set to analyze
-dataset = 'tictactoe'
+dataset = ''
 path = "../datasets/{}/{}.data".format(dataset, dataset)
 print("Analyzing the {} data set".format(dataset))
 learning_rates = [5, 1, 0.5, 0.2, 0.1, 0.05, 0.03, 0.01, 0.005, 0.002, 0.001]

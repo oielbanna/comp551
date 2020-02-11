@@ -41,7 +41,7 @@ class LogisticRegression:
         else:
             return np.mean(y * np.log1p(np.exp(-z)) + (1 - y) * np.log1p(np.exp(z)))
 
-    def fit(self, x, y, learning_rate=0.01, max_gradient=1e-2, max_iters=np.inf, random=True):
+    def fit(self, x, y, learning_rate=0.01, max_gradient=1e-2, max_iters=np.inf, random=False):
         """
         This function trains the model using the given training data and updates the weights of the model accordingly.
         :param x: feature matrix encapsulating data points and the values of their features
