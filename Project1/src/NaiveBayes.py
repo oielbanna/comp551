@@ -1,8 +1,18 @@
 import numpy as np
+import warnings
 
 
 def gaussian_likelihood(x, mean, std):
-    return (1 / np.sqrt(2 * np.pi * (std**2))) * (np.exp((-(x-mean)**2 / (2*std**2))))
+    warnings.simplefilter("error", RuntimeWarning)
+
+    try:
+        return (1 / np.sqrt(2 * np.pi * (std ** 2))) * (np.exp((-(x - mean) ** 2 / (2 * std ** 2))))
+    except RuntimeWarning:
+        #print(std)
+        #print(mean)
+        print(x)
+
+    #return (1 / np.sqrt(2 * np.pi * (std ** 2))) * (np.exp((-(x - mean) ** 2 / (2 * std ** 2))))
 
 
 def posterior(x_test, x_train_split, x, mean, std):
@@ -32,6 +42,12 @@ class NaiveBayes:
         self.x = x
         self.y = y
 
+        # Add small epsilon to all data to ensure we dont get any standard deviations of zero
+        self.epsilon = 1e-9
+
+        for i in self.x:
+            i += self.epsilon
+
         #Split binary data into classes 0 and 1
         split = {}
         split[0] = np.array([[]])
@@ -39,27 +55,23 @@ class NaiveBayes:
 
         one = True
         zero = True
-        for i in range(y.shape[0]):
-            if(y[i] == 0):
+        for i in range(self.y.shape[0]):
+            if(self.y[i] == 0):
                 if(zero == True):
-                    split[0] = x[i, :].reshape(x[i, :].shape[0], 1)    #reshape into a column
+                    split[0] = self.x[i, :].reshape(self.x[i, :].shape[0], 1)    #reshape into a column
                     zero = False
                 else:
-                    split[0] = np.append(split[0], x[i, :].reshape(x[i, :].shape[0], 1), axis=1)   #append column-wise
-            elif(y[i] == 1):
+                    split[0] = np.append(split[0], self.x[i, :].reshape(self.x[i, :].shape[0], 1), axis=1)   #append column-wise
+            elif(self.y[i] == 1):
                 if(one == True):
-                    split[1] = x[i, :].reshape(x[i, :].shape[0],1)
+                    split[1] = self.x[i, :].reshape(self.x[i, :].shape[0],1)
                     one = False
                 else:
-                    split[1] = np.append(split[1], x[i, :].reshape(x[i, :].shape[0], 1), axis=1)
+                    split[1] = np.append(split[1], self.x[i, :].reshape(self.x[i, :].shape[0], 1), axis=1)
 
         self.split = split
         self.split[0] = self.split[0].T
         self.split[1] = self.split[1].T
-
-        #self.priors = self.split[0].shape[0]/self.x.shape[0]
-        #count = np.array([np.array(i).sum(axis=0) for i in split]) + self.alpha
-        #self.feature_prob = count/count.sum(axis=0)[np.newaxis].T
 
         #Compute means and standard deviations for Gaussian Distribution
         self.mean_one = np.mean(split[1], axis=0)
@@ -75,17 +87,20 @@ class NaiveBayes:
         #print(split[1])
         #print(y)
 
-    def predict_probs(self, x_test):
-        return [(self.feature_prob * x).sum(axis=1) + self.prior for x in x_test]
-
     def predict(self, x_test):
         """
         This function predicts the class of the inputted data using the weights of the model object
         :param x: feature matrix encapsulating data points and the values of their features
         :return: predicted labels of the input data points
         """
+        for x in x_test:
+            x += self.epsilon
+
         post_one = posterior(x_test, self.split[1], self.x, self.mean_one, self.std_one)
         post_zero = posterior(x_test, self.split[0], self.x, self.mean_zero, self.std_zero)
 
-        return 1*(post_one > post_zero)
+        result = 1*(post_one > post_zero)
+        result = result.reshape((result.shape[0], 1))
+
+        return result
         #return np.argmax(self.predict_probs(x_test), axis=1)

@@ -47,7 +47,6 @@ def cross_validation(k_fold, x, y, model, **kwargs):
     :param kwargs: arguments taken by the fit function of the model
     :return: mean and standard variation of the validation error on all folds
     """
-
     # list to hold the accuracy
     accuracy_scores = []
 
@@ -58,6 +57,7 @@ def cross_validation(k_fold, x, y, model, **kwargs):
     folds_x = np.array_split(x[shuffle], k_fold)
     folds_y = np.array_split(y[shuffle], k_fold)
 
+
     for i in range(len(folds_x)):
         test_x, test_y = folds_x[i], folds_y[i]
         # create the training array by concatenating the remaining k-1 folds
@@ -65,6 +65,7 @@ def cross_validation(k_fold, x, y, model, **kwargs):
         train_y = np.concatenate([fold for fold in folds_y if fold is not test_y])
 
         model.fit(train_x, train_y, **kwargs)
+        #print("DONE")
         y_predicted = model.predict(test_x)
         accuracy_scores.append(evaluate_acc(test_y, y_predicted))
 
