@@ -1,1 +1,4 @@
-/.idea/
+./.idea/
+./__pycache__/
+./Project1/__pycache__/
+./Project1/src/__pycache__/
