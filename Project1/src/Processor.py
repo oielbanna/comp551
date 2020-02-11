@@ -1,16 +1,10 @@
 # import numpy as np
 import pandas as pd
 
-
-# https://pbpython.com/categorical-encoding.html
-
 class Processor:
     # removing all rows with '?'
     @staticmethod
     def removeMissing(X):
-        # for i, head in enumerate(self.header):
-        #     if(self.types[i] == str):
-        #          X = X[~X[head].str.contains("\?")]
         return X.dropna(axis=0)
 
     @staticmethod
@@ -19,8 +13,10 @@ class Processor:
 
     @staticmethod
     def fillMissing(X):
-        raise Exception("Method unimplemented.")
-        X = X.fillna({"num_doors": "four"})
+        vals = {}
+        for i in X.columns:
+            vals[i] = round(X[i].describe()['mean'])
+        return X.fillna(value=vals)
 
     @staticmethod
     def toBinaryCol(X, dic):
