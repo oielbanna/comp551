@@ -6,7 +6,7 @@ from Project1.src.CrossValidation import cross_validation
 import numpy as np
 import matplotlib.pyplot as plt
 
-ds = "ionosphere"
+ds = "mam"
 
 if ds == "adult":
     path = "../datasets/adult/adult.data"
@@ -55,9 +55,9 @@ elif ds == "mam":
 
     [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
 
-    model = NaiveBayes()
+    model = LogisticRegression()
 
-    print(cross_validation(5, X_train.to_numpy(), Processor.ToNumpyCol(Y_train), model))
+    print(cross_validation(5, X_train.to_numpy(), Processor.ToNumpyCol(Y_train), model, max_iters=105000))
 
 elif ds == "ttt":
     path = "./datasets/tictactoe/tic-tac-toe.data"
@@ -66,8 +66,6 @@ elif ds == "ttt":
     All = Processor.read(path, header)
 
     [X, Y] = Clean.ttt(All)
-
-    print(X.shape)
 
     [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
 

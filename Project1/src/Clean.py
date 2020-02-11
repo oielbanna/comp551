@@ -61,22 +61,29 @@ class Clean:
     @staticmethod
     def mam(X):
         X = X.copy()
-        X = Processor.removeMissing(X)
-        X = Processor.OHE(X, cols=["BI-RADS", "shape", "margin", "density"])
-
+        X = Processor.fillMissing(X)
         Y = X["result"]
         X = X.drop(columns=["result"])
         return [X, Y]
 
     @staticmethod
     def ttt(X):
-        binaryCols = {
-            "result": {"positive": 1, "negative": 0}
+        labels = {"o": 0, "b": 1, "x": 2}
+        encoding = {
+            "result": {"positive": 1, "negative": 0},
+            "tl": labels,
+            "tm": labels,
+            "tr": labels,
+            "ml": labels,
+            "mm": labels,
+            "mr": labels,
+            "bl": labels,
+            "bm": labels,
+            "br": labels
         }
         X = X.copy()
-        X = Processor.toBinaryCol(X, binaryCols)
+        X = Processor.toBinaryCol(X, encoding)
         Y = X["result"]
         X = X.drop(columns=["result"])
-        X = Processor.OHE(X)
 
         return [X, Y]
