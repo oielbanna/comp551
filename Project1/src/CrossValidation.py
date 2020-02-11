@@ -69,8 +69,7 @@ def cross_validation(k_fold, x, y, model, **kwargs):
         train_x = np.concatenate([fold for fold in folds_x if fold is not test_x])
         train_y = np.concatenate([fold for fold in folds_y if fold is not test_y])
 
-
-        if(type(model) == NaiveBayes):
+        if type(model) == NaiveBayes:
             model.fit(train_x, train_y, **kwargs)
             y_predicted = model.predict(test_x)
             accuracy_scores.append(evaluate_acc(test_y, y_predicted))
@@ -81,6 +80,4 @@ def cross_validation(k_fold, x, y, model, **kwargs):
             iterations.append(iters)
             y_predicted = model.predict(test_x)
             accuracy_scores.append(evaluate_acc(test_y, y_predicted))
-            return [stats.mean(accuracy_scores), stats.stdev(accuracy_scores), stats.mean(gradients), stats.mean(iterations)]
-
-
+            return [stats.mean(accuracy_scores), stats.mean(gradients), stats.mean(iterations)]
