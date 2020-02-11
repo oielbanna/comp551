@@ -49,7 +49,7 @@ elif ds == "phishing":
               "favicon", "port", "https", "request-url", "url-anchor", "link-tags", "sfh", "email", "abnormal-url",
               "redirect", "mouseover", "right-click", "popup", "iframe", "domain-age", "dns", "web-traffic", "page-rank",
               "google", "links-to-page", "stats", "result"]
-    all = Processor.read(path, header)
+    All = Processor.read(path, header)
 
     [X, Y] = Clean.phishing(all)
 
