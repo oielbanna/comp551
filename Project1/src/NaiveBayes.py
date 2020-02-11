@@ -3,16 +3,16 @@ import warnings
 
 
 def gaussian_likelihood(x, mean, std):
-    warnings.simplefilter("error", RuntimeWarning)
+    '''warnings.simplefilter("error", RuntimeWarning)
 
     try:
         return (1 / np.sqrt(2 * np.pi * (std ** 2))) * (np.exp((-(x - mean) ** 2 / (2 * std ** 2))))
     except RuntimeWarning:
         #print(std)
         #print(mean)
-        print(x)
+        print(x)'''
 
-    #return (1 / np.sqrt(2 * np.pi * (std ** 2))) * (np.exp((-(x - mean) ** 2 / (2 * std ** 2))))
+    return (1 / np.sqrt(2 * np.pi * (std ** 2))) * (np.exp((-(x - mean) ** 2 / (2 * std ** 2))))
 
 
 def posterior(x_test, x_train_split, x, mean, std):

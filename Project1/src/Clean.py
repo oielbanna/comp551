@@ -74,7 +74,6 @@ class Clean:
 
         Y = X["result"]
         X = X.iloc[:, :-1]
-        print(X.dtypes)
         return [X, Y]
 
     @staticmethod
