@@ -46,8 +46,8 @@ def cross_validation(k_fold, x, y, model, **kwargs):
     :param y: labels of the data for model training and cross validation
     :param model: LogisticRegression or NaiveBayes model object
     :param kwargs: arguments taken by the fit function of the model
-    :return: mean and standard variation of the validation error on all folds as well as averages of the last gradient
-             calculated and number of iterations of gradient descent
+    :return: mean of the validation error on all folds, average of the last gradient calculated, and average number of
+             iterations of gradient descent
     """
 
     # lists to hold the accuracy, last gradients calculated  and iterations ran by each model.fit() call
@@ -75,4 +75,4 @@ def cross_validation(k_fold, x, y, model, **kwargs):
         y_predicted = model.predict(test_x)
         accuracy_scores.append(evaluate_acc(test_y, y_predicted))
 
-    return [stats.mean(accuracy_scores), stats.stdev(accuracy_scores), stats.mean(gradients), stats.mean(iterations)]
+    return [stats.mean(accuracy_scores), stats.mean(gradients), stats.mean(iterations)]
