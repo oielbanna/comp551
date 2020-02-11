@@ -10,7 +10,6 @@ def posterior(x_test, x_train_split, x, mean, std):
     post = np.prod(likelihood, axis=1) * (x_train_split.shape[0] / x.shape[0])
     return post
 
-
 class NaiveBayes:
 
     def __init__(self, alpha=1.0):
@@ -56,6 +55,13 @@ class NaiveBayes:
         self.split = split
         self.split[0] = self.split[0].T
         self.split[1] = self.split[1].T
+        self.epsilon = 0.000001
+
+        for x in self.split[0]:
+            x += self.epsilon
+
+        for x in self.split[1]:
+            x += self.epsilon
 
         #self.priors = self.split[0].shape[0]/self.x.shape[0]
         #count = np.array([np.array(i).sum(axis=0) for i in split]) + self.alpha
@@ -75,9 +81,6 @@ class NaiveBayes:
         #print(split[1])
         #print(y)
 
-    def predict_probs(self, x_test):
-        return [(self.feature_prob * x).sum(axis=1) + self.prior for x in x_test]
-
     def predict(self, x_test):
         """
         This function predicts the class of the inputted data using the weights of the model object
@@ -87,5 +90,8 @@ class NaiveBayes:
         post_one = posterior(x_test, self.split[1], self.x, self.mean_one, self.std_one)
         post_zero = posterior(x_test, self.split[0], self.x, self.mean_zero, self.std_zero)
 
-        return 1*(post_one > post_zero)
+        result = 1*(post_one > post_zero)
+        result = result.reshape((result.shape[0], 1))
+
+        return result
         #return np.argmax(self.predict_probs(x_test), axis=1)

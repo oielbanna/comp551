@@ -41,7 +41,7 @@ def evaluate_acc(true_labels, predicted, verbose=False):
 
     return accuracy
 
-adult = False
+adult = True
 
 if adult:
     path = "../datasets/adult/adult.data"
@@ -58,13 +58,14 @@ if adult:
     [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
 
     model = NaiveBayes()
-    w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train))
+    #w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train))
 
-    b = model.predict(X_test.to_numpy())
-    b = b.reshape((b.shape[0], 1))
+    #b = model.predict(X_test.to_numpy())
+    #b = b.reshape((b.shape[0], 1))
 
-    print("DONE TRAINING")
-    print(evaluate_acc(Processor.ToNumpyCol(Y_test), b))
+    #print("DONE TRAINING")
+    print(cross_validation(5, X_train.to_numpy(), Processor.ToNumpyCol(Y_train), model))
+    #print(evaluate_acc(Processor.ToNumpyCol(Y_test), model.predict(X_test.to_numpy())))
 
 else:
     path = "../datasets/ionosphere/ionosphere.data"
@@ -78,8 +79,8 @@ else:
 
     [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.80)
 
-    model = LogisticRegression()
-   # w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train))
+    model = NaiveBayes()
+    #w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train))
 
     #b = model.predict(X_test.to_numpy())
     #b = b.reshape((b.shape[0], 1))

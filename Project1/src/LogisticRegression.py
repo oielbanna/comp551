@@ -55,6 +55,7 @@ class LogisticRegression:
         """
 
         # Initialize the weights array to have as many rows as input features (filled with random values)
+
         self.weights = np.random.uniform(low=random_w_low, high=random_w_high, size=(x.shape[1], 1))
         g = np.inf
         iterations = 0
@@ -62,6 +63,7 @@ class LogisticRegression:
             g = gradient(x, y, self.weights)
             self.weights = self.weights - learning_rate * g
             iterations += 1
+            #print(iterations)
             # TODO consider plotting the cost vs. iters as the weights are being calculated to check for convergence
         return self.weights
 
