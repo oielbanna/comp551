@@ -6,8 +6,7 @@ from Project1.src.CrossValidation import cross_validation
 import numpy as np
 import matplotlib.pyplot as plt
 
-
-ds = "adult"
+ds = "phishing"
 
 if ds == "adult":
     path = "./datasets/adult/adult.data"
@@ -25,7 +24,7 @@ if ds == "adult":
 
     model = LogisticRegression()
 
-    print(cross_validation(5, X_train.to_numpy(),Processor.ToNumpyCol(Y_train), model, max_gradient=0.8, learning_rate=0.01))
+    print(cross_validation(5, X_train.to_numpy(), Processor.ToNumpyCol(Y_train), model, max_gradient=0.8, learning_rate=0.01))
 
 
 elif ds == "ionosphere":
@@ -38,16 +37,28 @@ elif ds == "ionosphere":
 
     [X, Y] = Clean.Ionosphere(All)
 
-    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.80)
+    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
+
+    model = LogisticRegression()
+
+    print(cross_validation(5, X_train.to_numpy(), Processor.ToNumpyCol(Y_train), model))
+
+elif ds == "phishing":
+    path = "./datasets/phishing/phishing.arff"
+    header = ["ip", "url-length", "short-service", "at", "dslash", "prefix-suffix", "subdomain", "ssl", "domain-len",
+              "favicon", "port", "https", "request-url", "url-anchor", "link-tags", "sfh", "email", "abnormal-url",
+              "redirect", "mouseover", "right-click", "popup", "iframe", "domain-age", "dns", "web-traffic", "page-rank",
+              "google", "links-to-page", "stats", "result"]
+    all = Processor.read(path, header)
+
+    [X, Y] = Clean.phishing(all)
+
+    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
 
     model = LogisticRegression()
 
     print(cross_validation(5, X_train.to_numpy(), Processor.ToNumpyCol(Y_train), model))
 
 elif ds == "ttt":
-    path = "./datasets/tictactoe/tic-tac-toe.data"
     header = ["tl", "tm", "tr", "ml", "mm", "mr", "bl", "bm", "br", "result"]
-
-
-
 

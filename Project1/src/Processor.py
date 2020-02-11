@@ -1,6 +1,7 @@
 # import numpy as np
 import pandas as pd
 
+
 # https://pbpython.com/categorical-encoding.html
 
 class Processor:
@@ -45,8 +46,8 @@ class Processor:
 
     @staticmethod
     def split(X, Y, train=0.8):
-        R,C = X.shape
-        n = int(R*train)
+        R, C = X.shape
+        n = int(R * train)
         X_train = X.iloc[:n]
         X_test = X.iloc[n:]
         Y_train = Y.iloc[:n]
@@ -58,8 +59,7 @@ class Processor:
         if header is None or len(header) == 0:
             return pd.read_csv(path, na_values="?", skipinitialspace=True)
         return pd.read_csv(path,
-                  header=None, names=header, na_values="?", skipinitialspace=True)
-
+                           header=None, names=header, na_values="?", skipinitialspace=True)
 
     @staticmethod
     def ToNumpyCol(X):

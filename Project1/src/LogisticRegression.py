@@ -41,7 +41,7 @@ class LogisticRegression:
         else:
             return np.mean(y * np.log1p(np.exp(-z)) + (1 - y) * np.log1p(np.exp(z)))
 
-    def fit(self, x, y, learning_rate=0.01, max_gradient=1e-2, max_iters=np.inf, random_w_low=-1, random_w_high=1):
+    def fit(self, x, y, learning_rate=0.01, max_gradient=1e-2, max_iters=np.inf, random=False):
         """
         This function trains the model using the given training data and updates the weights of the model accordingly.
         :param x: feature matrix encapsulating data points and the values of their features
@@ -49,20 +49,22 @@ class LogisticRegression:
         :param learning_rate: gradient descent step
         :param max_gradient: max gradient value before gradient descent is stopped
         :param max_iters: maximum number of iterations allowed for gradient descent
-        :param random_w_low: lower boundary of the random interval for the weights initialization
-        :param random_w_high: higher boundary of the random interval for the weights initialization
+        :param random: weights initialized to random values if True
         :return: learned weights of the model
         """
 
-        # Initialize the weights array to have as many rows as input features (filled with random values)
-        self.weights = np.random.uniform(low=random_w_low, high=random_w_high, size=(x.shape[1], 1))
+        if random:
+            # Initialize the weights array to have as many rows as input features (filled with random values)
+            self.weights = np.random.uniform(low=-1, high=1, size=(x.shape[1], 1))
+        else:
+            self.weights = np.ones(shape=(x.shape[1], 1))
+
         g = np.inf
         iterations = 0
         while np.linalg.norm(g) > max_gradient and iterations < max_iters:
             g = gradient(x, y, self.weights)
             self.weights = self.weights - learning_rate * g
             iterations += 1
-            # TODO consider plotting the cost vs. iters as the weights are being calculated to check for convergence
         return self.weights
 
     def predict(self, x):
