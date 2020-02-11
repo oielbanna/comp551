@@ -10,6 +10,11 @@ import matplotlib.pyplot as plt
 
 
 def df_to_table(pandas_frame, export_filename):
+    """
+    Get a PNG from a Pandas DataFrame for use in report
+    :param pandas_frame: table with data
+    :param export_filename: name of the target PNG file
+    """
     fig, ax = plt.subplots()
 
     fig.patch.set_visible(False)
@@ -23,10 +28,13 @@ def df_to_table(pandas_frame, export_filename):
     plt.savefig(export_filename + '.png', bbox_inches='tight')
 
 
-dataset = 'adult'
+# Use the following variable to determine which data set to analyze
+dataset = 'tictactoe'
+path = "../datasets/{}/{}.data".format(dataset, dataset)
+print("Analyzing the {} data set".format(dataset))
+learning_rates = [5, 1, 0.5, 0.2, 0.1, 0.05, 0.03, 0.01, 0.005, 0.002, 0.001]
 
 if dataset == 'ionosphere':
-    path = "../datasets/ionosphere/ionosphere.data"
 
     header = ["{}{}".format("col", x) for x in range(33 + 1)]
     header.append("signal")
@@ -36,8 +44,6 @@ if dataset == 'ionosphere':
     [X, Y] = Clean.Ionosphere(All)
 
     [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
-
-    learning_rates = [10, 5, 1, 0.8, 0.6, 0.4, 0.2, 0.1, 0.05, 0.01]
 
     results = []
 
@@ -51,12 +57,10 @@ if dataset == 'ionosphere':
     df_to_table(df, 'ionosphere_table')
 
 elif dataset == 'adult':
-    print("Analyzing adult data set")
-    path = "../datasets/adult/adult.data"
 
     header = ['age', 'workclass', 'fnlwgt', 'education', 'education-num', 'marital-status', 'occupation',
-              'relationship',
-              'race', 'sex', 'capital-gain', 'capital-loss', 'hours-per-week', 'native-country', 'salary']
+              'relationship', 'race', 'sex', 'capital-gain', 'capital-loss', 'hours-per-week', 'native-country',
+              'salary']
 
     All = Processor.read(path, header)
 
@@ -65,8 +69,6 @@ elif dataset == 'adult':
     print(X.shape)
 
     [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
-
-    learning_rates = [0.5, 0.2, 0.15, 0.1, 0.05]
 
     results = []
 
@@ -81,8 +83,6 @@ elif dataset == 'adult':
     df_to_table(df, 'adult_table')
 
 elif dataset == "mam":
-    print("Analyzing mammography data set")
-    path = "./datasets/mam/mam.data"
     header = ["BI-RADS", "age", "shape", "margin", "density", "result"]
     All = Processor.read(path, header)
 
@@ -90,13 +90,11 @@ elif dataset == "mam":
 
     [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
 
-    learning_rates = [0.5, 0.2, 0.15, 0.1, 0.05]
-
     results = []
 
     for rate in learning_rates:
         r = cross_validation(5, X_train.to_numpy(), Processor.ToNumpyCol(Y_train), LogisticRegression(),
-                             learning_rate=rate, max_gradient=1e-1, max_iters=10000, random=False)
+                             learning_rate=rate, max_gradient=1e-1, max_iters=15000, random=False)
         r.insert(0, rate)
         results.append(r)
 
@@ -105,5 +103,26 @@ elif dataset == "mam":
     df_to_table(df, 'mam_table')
 
 
-elif dataset == "ttt":
-    pass
+elif dataset == "tictactoe":
+    path = "../datasets/tictactoe/tic-tac-toe.data"
+    header = ["tl", "tm", "tr", "ml", "mm", "mr", "bl", "bm", "br", "result"]
+
+    All = Processor.read(path, header)
+
+    [X, Y] = Clean.ttt(All)
+
+    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
+
+    learning_rates = [1, 0.9, 0.8, 0.7, 0.6, 0.5]
+
+    results = []
+
+    for rate in learning_rates:
+        r = cross_validation(5, X_train.to_numpy(), Processor.ToNumpyCol(Y_train), LogisticRegression(),
+                             learning_rate=rate, max_gradient=1e-2, max_iters=15000, random=False)
+        r.insert(0, rate)
+        results.append(r)
+
+    df = pd.DataFrame(results, columns=['learning rate', 'accuracy', 'last gradient', 'iterations'])
+    print(df)
+    df_to_table(df, 'ttt_table')
