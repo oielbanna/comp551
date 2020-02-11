@@ -1,6 +1,7 @@
 import numpy as np
 import statistics as stats
 
+
 def evaluate_acc(true_labels, predicted, verbose=False):
     """
     Outputs accuracy score of the model computed from the provided true labels and the predicted ones
@@ -45,11 +46,14 @@ def cross_validation(k_fold, x, y, model, **kwargs):
     :param y: labels of the data for model training and cross validation
     :param model: LogisticRegression or NaiveBayes model object
     :param kwargs: arguments taken by the fit function of the model
-    :return: mean and standard variation of the validation error on all folds
+    :return: mean and standard variation of the validation error on all folds as well as averages of the last gradient
+             calculated and number of iterations of gradient descent
     """
 
-    # list to hold the accuracy
+    # lists to hold the accuracy, last gradients calculated  and iterations ran by each model.fit() call
     accuracy_scores = []
+    gradients = []
+    iterations = []
 
     # Create pseudorandom list of indices for shuffling the input arrays (achieve randomized cross validation)
     shuffle = np.random.RandomState().permutation(len(x))
@@ -64,8 +68,11 @@ def cross_validation(k_fold, x, y, model, **kwargs):
         train_x = np.concatenate([fold for fold in folds_x if fold is not test_x])
         train_y = np.concatenate([fold for fold in folds_y if fold is not test_y])
 
-        model.fit(train_x, train_y, **kwargs)
+        _, g, iters = model.fit(train_x, train_y, **kwargs)
+
+        gradients.append(g)
+        iterations.append(iters)
         y_predicted = model.predict(test_x)
         accuracy_scores.append(evaluate_acc(test_y, y_predicted))
 
-    return [stats.mean(accuracy_scores), stats.stdev(accuracy_scores)]
+    return [stats.mean(accuracy_scores), stats.stdev(accuracy_scores), stats.mean(gradients), stats.mean(iterations)]
