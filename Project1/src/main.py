@@ -6,45 +6,12 @@ from Project1.src.CrossValidation import cross_validation
 import numpy as np
 import matplotlib.pyplot as plt
 
-def evaluate_acc(true_labels, predicted, verbose=False):
-    """
-    Outputs accuracy score of the model computed from the provided true labels and the predicted ones
-    :param true_labels: Numpy array containing true labels
-    :param predicted: Numpy array containing labels predicted by a model
-    :param verbose: boolean flag, confusion matrix is printed when set to True
-    :return: accuracy score
-    """
-    if true_labels.shape != predicted.shape:
-        raise Exception("Input label arrays do not have the same shape.")
 
-    comparison = true_labels == predicted
-    correct = np.count_nonzero(comparison)
-    accuracy = correct / true_labels.size
+ds = "phishing"
 
-    if verbose:
-        # Scale predicted labels array by 0.5 and add to comparision array
-        # TP -> 1.5, TN -> 1, FP -> 0.5, FN -> 0
-        scaled_predicted = 0.5 * predicted
-        sum_array = np.add(scaled_predicted, comparison)
-        TPs = np.count_nonzero(sum_array == 1.5)
-        TNs = np.count_nonzero(sum_array == 1.0)
-        FPs = np.count_nonzero(sum_array == 0.5)
-        FNs = np.count_nonzero(sum_array == 0)
+if ds == "adult":
+    path = "./datasets/adult/adult.data"
 
-        confusion_matrix = np.array([[TPs, FPs], [FNs, TNs]])
-        precision = TPs / (TPs + FPs)
-        recall = TPs / (TPs + FNs)
-        print("Confusion Matrix: \n" + str(confusion_matrix))
-        print("Precision: " + str(precision))
-        print("Recall: " + str(recall))
-        print("F1 Score: " + str(2 * (precision * recall) / (precision + recall)))
-
-    return accuracy
-
-adult = True
-
-if adult:
-    path = "../datasets/adult/adult.data"
     header = ['age', 'workclass', 'fnlwgt', 'education', 'education-num', 'marital-status', 'occupation',
               'relationship',
               'race', 'sex', 'capital-gain', 'capital-loss', 'hours-per-week', 'native-country', 'salary']
@@ -57,18 +24,15 @@ if adult:
 
     [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
 
-    model = NaiveBayes()
-    #w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train))
 
-    #b = model.predict(X_test.to_numpy())
-    #b = b.reshape((b.shape[0], 1))
+    model = LogisticRegression()
 
-    #print("DONE TRAINING")
-    print(cross_validation(5, X_train.to_numpy(), Processor.ToNumpyCol(Y_train), model))
-    #print(evaluate_acc(Processor.ToNumpyCol(Y_test), model.predict(X_test.to_numpy())))
+    print(cross_validation(5, X_train.to_numpy(), Processor.ToNumpyCol(Y_train), model, max_gradient=0.8, learning_rate=0.01))
 
-else:
-    path = "../datasets/ionosphere/ionosphere.data"
+
+
+elif ds == "ionosphere":
+    path = "./datasets/ionosphere/ionosphere.data"
 
     header = ["{}{}".format("col", x) for x in range(33 + 1)]
     header.append("signal")
@@ -77,17 +41,30 @@ else:
 
     [X, Y] = Clean.Ionosphere(All)
 
-    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.80)
-
-    model = NaiveBayes()
-    #w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train))
-
-    #b = model.predict(X_test.to_numpy())
-    #b = b.reshape((b.shape[0], 1))
-
-    print(cross_validation(5, X_train.to_numpy(),Processor.ToNumpyCol(Y_train), model))
-
-    #print(evaluate_acc(Processor.ToNumpyCol(Y_test), b, verbose=True))
+    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
 
 
+    model = LogisticRegression()
+
+
+    print(cross_validation(5, X_train.to_numpy(), Processor.ToNumpyCol(Y_train), model))
+
+elif ds == "phishing":
+    path = "./datasets/phishing/phishing.arff"
+    header = ["ip", "url-length", "short-service", "at", "dslash", "prefix-suffix", "subdomain", "ssl", "domain-len",
+              "favicon", "port", "https", "request-url", "url-anchor", "link-tags", "sfh", "email", "abnormal-url",
+              "redirect", "mouseover", "right-click", "popup", "iframe", "domain-age", "dns", "web-traffic", "page-rank",
+              "google", "links-to-page", "stats", "result"]
+    all = Processor.read(path, header)
+
+    [X, Y] = Clean.phishing(all)
+
+    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
+
+    model = LogisticRegression()
+
+    print(cross_validation(5, X_train.to_numpy(), Processor.ToNumpyCol(Y_train), model))
+
+elif ds == "ttt":
+    header = ["tl", "tm", "tr", "ml", "mm", "mr", "bl", "bm", "br", "result"]
 

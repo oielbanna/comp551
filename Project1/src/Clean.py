@@ -55,3 +55,12 @@ class Clean:
         X = X.iloc[:, :-1]
 
         return [X, Y]
+
+    @staticmethod
+    def phishing(X):
+        X = X.copy()
+
+        Y = X["result"]
+        X = X.iloc[:, :-1]
+
+        return [X, Y]

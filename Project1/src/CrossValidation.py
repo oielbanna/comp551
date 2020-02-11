@@ -1,6 +1,5 @@
 import numpy as np
 import statistics as stats
-#from Project1.src.main import evaluate_acc
 
 def evaluate_acc(true_labels, predicted, verbose=False):
     """
@@ -58,12 +57,6 @@ def cross_validation(k_fold, x, y, model, **kwargs):
     folds_x = np.array_split(x[shuffle], k_fold)
     folds_y = np.array_split(y[shuffle], k_fold)
 
-    ''' # list to hold the accuracy
-    accuracy_scores = []
-
-    # Split the data array into k sub-arrays (folds)
-    folds_x = np.array_split(x, k_fold)
-    folds_y = np.array_split(y, k_fold)'''
 
     for i in range(len(folds_x)):
         test_x, test_y = folds_x[i], folds_y[i]
