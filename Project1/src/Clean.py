@@ -1,6 +1,8 @@
 from Project1.src.Processor import Processor
-class Clean:
+import matplotlib.pyplot as plt
 
+
+class Clean:
     @staticmethod
     def adult(X):
         binaryCols = {
@@ -57,10 +59,24 @@ class Clean:
         return [X, Y]
 
     @staticmethod
-    def phishing(X):
+    def mam(X):
         X = X.copy()
+        X = Processor.removeMissing(X)
+        X = Processor.OHE(X, cols=["BI-RADS", "shape", "margin", "density"])
 
         Y = X["result"]
-        X = X.iloc[:, :-1]
+        X = X.drop(columns=["result"])
+        return [X, Y]
+
+    @staticmethod
+    def ttt(X):
+        binaryCols = {
+            "result": {"positive": 1, "negative": 0}
+        }
+        X = X.copy()
+        X = Processor.toBinaryCol(X, binaryCols)
+        Y = X["result"]
+        X = X.drop(columns=["result"])
+        X = Processor.OHE(X)
 
         return [X, Y]

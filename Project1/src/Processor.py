@@ -29,8 +29,9 @@ class Processor:
 
     # One Hot Encoding for all columns with type object (ie categorical cols)
     @staticmethod
-    def OHE(X):
-        cols = list(X.select_dtypes(include=['object']).columns)
+    def OHE(X, cols=[]):
+        if len(cols) == 0:
+            cols = list(X.select_dtypes(include=['object']).columns)
         return pd.get_dummies(X, columns=cols)
 
     @staticmethod
