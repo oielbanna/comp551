@@ -43,7 +43,7 @@ if dataset == 'ionosphere':
 
     for rate in learning_rates:
         r = cross_validation(5, X_train.to_numpy(), Processor.ToNumpyCol(Y_train), LogisticRegression(),
-                             learning_rate=rate, max_gradient=1e-2, max_iters=50000, random=True)
+                             learning_rate=rate, max_gradient=1e-2, max_iters=50000, random=False)
         r.insert(0, rate)
         results.append(r)
 
@@ -51,6 +51,7 @@ if dataset == 'ionosphere':
     df_to_table(df, 'ionosphere_table')
 
 elif dataset == 'adult':
+    print("Analyzing adult data set")
     path = "../datasets/adult/adult.data"
 
     header = ['age', 'workclass', 'fnlwgt', 'education', 'education-num', 'marital-status', 'occupation',
@@ -65,16 +66,44 @@ elif dataset == 'adult':
 
     [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
 
-    learning_rates = [0.2, 0.1]
+    learning_rates = [0.5, 0.2, 0.15, 0.1, 0.05]
 
     results = []
 
     for rate in learning_rates:
         r = cross_validation(5, X_train.to_numpy(), Processor.ToNumpyCol(Y_train), LogisticRegression(),
-                             learning_rate=rate, max_gradient=1e-2, max_iters=10000, random=True)
+                             learning_rate=rate, max_gradient=1e-2, max_iters=20000, random=False)
         r.insert(0, rate)
         results.append(r)
 
     df = pd.DataFrame(results, columns=['learning rate', 'accuracy', 'last gradient', 'iterations'])
     print(df)
-    # df_to_table(df, 'adult_table')
+    df_to_table(df, 'adult_table')
+
+elif dataset == "mam":
+    print("Analyzing mammography data set")
+    path = "./datasets/mam/mam.data"
+    header = ["BI-RADS", "age", "shape", "margin", "density", "result"]
+    All = Processor.read(path, header)
+
+    [X, Y] = Clean.mam(All)
+
+    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
+
+    learning_rates = [0.5, 0.2, 0.15, 0.1, 0.05]
+
+    results = []
+
+    for rate in learning_rates:
+        r = cross_validation(5, X_train.to_numpy(), Processor.ToNumpyCol(Y_train), LogisticRegression(),
+                             learning_rate=rate, max_gradient=1e-1, max_iters=10000, random=False)
+        r.insert(0, rate)
+        results.append(r)
+
+    df = pd.DataFrame(results, columns=['learning rate', 'accuracy', 'last gradient', 'iterations'])
+    print(df)
+    df_to_table(df, 'mam_table')
+
+
+elif dataset == "ttt":
+    pass
