@@ -50,7 +50,7 @@ class LogisticRegression:
         :param max_gradient: max gradient value before gradient descent is stopped
         :param max_iters: maximum number of iterations allowed for gradient descent
         :param random: weights initialized to random values if True
-        :return: learned weights of the model
+        :return: learned weights of the model, last gradient computed, number of iterations executed by gradient descent
         """
         if random:
             # Initialize the weights array to have as many rows as input features (filled with random values)
@@ -63,7 +63,7 @@ class LogisticRegression:
             g = gradient(x, y, self.weights)
             self.weights = self.weights - learning_rate * g
             iterations += 1
-        return self.weights
+        return [self.weights, g, iterations]
 
     def predict(self, x):
         """
