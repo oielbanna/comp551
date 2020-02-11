@@ -53,7 +53,6 @@ class LogisticRegression:
         :return: learned weights of the model, last gradient computed, number of iterations executed by gradient descent
         """
 
-
         if random:
             # Initialize the weights array to have as many rows as input features (filled with random values)
             self.weights = np.random.uniform(low=-1, high=1, size=(x.shape[1], 1))
