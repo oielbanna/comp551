@@ -1,7 +1,7 @@
 """
 The purpose of this script is to compare the accuracies of the two models on the 4 data sets and report them in a table.
- As instructed in Task 3, all accuracies are estimated using 5-fold cross validation.
- Learning rates and threshold gradient were chosen using the results of the hyperparameter tuning script
+As instructed in Task 3, all accuracies are estimated using 5-fold cross validation.
+Learning rates and threshold gradient were chosen using the results of the hyperparameter tuning script
 """
 from Project1.src.LogisticRegression import LogisticRegression
 from Project1.src.NaiveBayes import NaiveBayes
