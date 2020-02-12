@@ -73,7 +73,7 @@ def cross_validation(k_fold, x, y, model, **kwargs):
             model.fit(train_x, train_y, **kwargs)
             y_predicted = model.predict(test_x)
             accuracy_scores.append(evaluate_acc(test_y, y_predicted))
-            return [stats.mean(accuracy_scores)]
+            return stats.mean(accuracy_scores)
         else:
             _, g, iters = model.fit(train_x, train_y, **kwargs)
             gradients.append(g)
