@@ -10,3 +10,5 @@ Create Env
 Update Env
 <code>conda env update -f /path/to/environment.yml</code>
 
+Update environment.yml file
+<code>conda env export  -f /path/to/environment.yml --no-builds</code>

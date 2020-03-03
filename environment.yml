@@ -10,6 +10,7 @@ dependencies:
   - icc_rt=2019.0.0
   - icu=58.2
   - intel-openmp=2019.4
+  - joblib=0.14.1
   - jpeg=9b
   - kiwisolver=1.1.0
   - libpng=1.6.37
@@ -28,6 +29,8 @@ dependencies:
   - python=3.7.6
   - python-dateutil=2.8.1
   - qt=5.9.7
+  - scikit-learn=0.22.1
+  - scipy=1.4.1
   - setuptools=45.1.0
   - sip=4.19.8
   - six=1.14.0
@@ -39,7 +42,6 @@ dependencies:
   - wincertstore=0.2
   - zlib=1.2.11
   - pip:
-      - pandas==1.0.0
-      - pytz==2019.3
+    - pandas==1.0.0
+    - pytz==2019.3
 prefix: C:\Users\myous\Anaconda3\envs\comp551
-
