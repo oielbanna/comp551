@@ -7,7 +7,7 @@ import timeit
 import numpy as np
 import matplotlib.pyplot as plt
 
-ds = "ionosphere"
+ds = "ttt"
 
 if ds == "adult":
     path = "../datasets/adult/adult.data"

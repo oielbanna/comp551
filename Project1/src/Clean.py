@@ -62,19 +62,11 @@ class Clean:
     def ttt(X):
         labels = {"o": 0, "b": 1, "x": 2}
         encoding = {
-            "result": {"positive": 1, "negative": 0},
-            "tl": labels,
-            "tm": labels,
-            "tr": labels,
-            "ml": labels,
-            "mm": labels,
-            "mr": labels,
-            "bl": labels,
-            "bm": labels,
-            "br": labels
+            "result": {"positive": 1, "negative": 0}
         }
         X = X.copy()
         X = Processor.toBinaryCol(X, encoding)
+        X = Processor.OHE(X, cols=["tl", "tm", "tr", "ml", "mm", "mr", "bl", "bm", "br"])
         Y = X["result"]
         X = X.drop(columns=["result"])
 
