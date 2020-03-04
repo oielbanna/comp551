@@ -21,30 +21,77 @@ def df_to_table(pandas_frame, export_filename):
 
     plt.savefig(export_filename + '.png', bbox_inches='tight')
 
-ds = "ionosphere"
+ds = "adult"
 
 if ds == "adult":
-    """NAIVE BAYES
-    path = "../datasets/adult/adult.data"
+    """ADULT"""
 
-    header = ['age', 'workclass', 'fnlwgt', 'education', 'education-num', 'marital-status', 'occupation',
-              'relationship',
-              'race', 'sex', 'capital-gain', 'capital-loss', 'hours-per-week', 'native-country', 'salary']
 
-    All = Processor.read(path, header)
+    a_setup_NB = '''
+from Project1.src.NaiveBayes import NaiveBayes
+from Project1.src.LogisticRegression import LogisticRegression
+from Project1.src.Processor import Processor
+from Project1.src.Clean import Clean
+from Project1.src.CrossValidation import cross_validation
 
-    [X, Y] = Clean.adult(All)
+path = "../datasets/adult/adult.data"
 
-    print(X.shape)
+header = ['age', 'workclass', 'fnlwgt', 'education', 'education-num', 'marital-status', 'occupation',
+          'relationship',
+          'race', 'sex', 'capital-gain', 'capital-loss', 'hours-per-week', 'native-country', 'salary']
 
-    [X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
+All = Processor.read(path, header)
 
-    model = NaiveBayes()
-    w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train))"""
+[X, Y] = Clean.adult(All)
 
-    """NAIVEBAYES IONOSPHERE"""
 
-    setup_NB = '''
+
+[X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
+
+model = NaiveBayes()
+    '''
+
+    a_setup_LR = '''
+from Project1.src.NaiveBayes import NaiveBayes
+from Project1.src.LogisticRegression import LogisticRegression
+from Project1.src.Processor import Processor
+from Project1.src.Clean import Clean
+from Project1.src.CrossValidation import cross_validation
+
+path = "../datasets/adult/adult.data"
+
+header = ['age', 'workclass', 'fnlwgt', 'education', 'education-num', 'marital-status', 'occupation',
+          'relationship',
+          'race', 'sex', 'capital-gain', 'capital-loss', 'hours-per-week', 'native-country', 'salary']
+
+All = Processor.read(path, header)
+
+[X, Y] = Clean.adult(All)
+
+
+
+[X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
+
+model = LogisticRegression()
+        '''
+
+    a_test_NB = '''
+w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train))
+        '''
+
+    a_test_LR = '''
+w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train), learning_rate=0.2, max_gradient=1e-1, max_iters=20000)
+    '''
+    print("timing adult")
+    #a_timeNB = timeit.timeit(setup=a_setup_NB, stmt=a_test_NB, number=1000) / 1000
+    #a_timeLR = timeit.timeit(setup=a_setup_LR, stmt=a_test_LR, number=1000) / 1000
+    a_timeNB = timeit.timeit(setup=a_setup_NB, stmt=a_test_NB, number=100) / 100
+    a_timeLR = timeit.timeit(setup=a_setup_LR, stmt=a_test_LR, number=100) / 100
+    print("done")
+
+    """IONOSPHERE"""
+
+    i_setup_NB = '''
 from Project1.src.NaiveBayes import NaiveBayes
 from Project1.src.LogisticRegression import LogisticRegression
 from Project1.src.Processor import Processor
@@ -65,7 +112,7 @@ All = Processor.read(path, header)
 model = NaiveBayes()
     '''
 
-    setup_LR = '''
+    i_setup_LR = '''
 from Project1.src.NaiveBayes import NaiveBayes
 from Project1.src.LogisticRegression import LogisticRegression
 from Project1.src.Processor import Processor
@@ -86,23 +133,145 @@ All = Processor.read(path, header)
 model = LogisticRegression()
     '''
 
-    test_NB = '''
+    i_test_NB = '''
 w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train))
     '''
 
-    test_LR = '''
-w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train), learning_rate=0.2, max_gradient=1e-2)
+    i_test_LR = '''
+w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train), learning_rate=0.2, max_gradient=1e-2, max_iters=10000)
 '''
+    print("timing i")
+    #i_timeNB = timeit.timeit(setup=i_setup_NB, stmt=i_test_NB, number=1000) / 1000
+    #i_timeLR = timeit.timeit(setup=i_setup_LR, stmt=i_test_LR, number=1000) / 1000
+    i_timeNB = timeit.timeit(setup=i_setup_NB, stmt=i_test_NB, number=100) / 100
+    i_timeLR = timeit.timeit(setup=i_setup_LR, stmt=i_test_LR, number=100) / 100
+    print("done")
 
-    timeNB = timeit.timeit(setup=setup_NB, stmt=test_NB, number=10000) / 10000
-    timeLR = timeit.timeit(setup=setup_LR, stmt=test_LR, number=10000) / 10000
-    result = []
-    result.append("Ionosphere")
-    result.append(timeNB)
-    result.append(timeLR)
+    """Mamogram"""
 
-    df = pd.DataFrame(result, columns=['dataset', 'execution time (Naive Bayes)', 'execution time (Logistic Regression)'])
-    df_to_table(df, 'ionosphere_time')
+    m_setup_NB = '''
+from Project1.src.NaiveBayes import NaiveBayes
+from Project1.src.LogisticRegression import LogisticRegression
+from Project1.src.Processor import Processor
+from Project1.src.Clean import Clean
+from Project1.src.CrossValidation import cross_validation
+
+path = "../datasets/mam/mam.data"
+header = ["BI-RADS", "age", "shape", "margin", "density", "result"]
+All = Processor.read(path, header)
+
+[X, Y] = Clean.mam(All)
+
+[X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
+
+model = NaiveBayes()
+        '''
+
+    m_setup_LR = '''
+from Project1.src.NaiveBayes import NaiveBayes
+from Project1.src.LogisticRegression import LogisticRegression
+from Project1.src.Processor import Processor
+from Project1.src.Clean import Clean
+from Project1.src.CrossValidation import cross_validation
+
+path = "../datasets/mam/mam.data"
+header = ["BI-RADS", "age", "shape", "margin", "density", "result"]
+All = Processor.read(path, header)
+
+[X, Y] = Clean.mam(All)
+
+[X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
+
+model = LogisticRegression()
+        '''
+
+    m_test_NB = '''
+w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train))
+        '''
+
+    m_test_LR = '''
+w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train), learning_rate=0.001, max_gradient=1e-1, max_iters=15000)
+    '''
+    print("timing m")
+    #m_timeNB = timeit.timeit(setup=m_setup_NB, stmt=m_test_NB, number=1000) / 1000
+    #m_timeLR = timeit.timeit(setup=m_setup_LR, stmt=m_test_LR, number=1000) / 1000
+    m_timeNB = timeit.timeit(setup=m_setup_NB, stmt=m_test_NB, number=100) / 100
+    m_timeLR = timeit.timeit(setup=m_setup_LR, stmt=m_test_LR, number=100) / 100
+    print("done")
+
+    """TICTACTOE"""
+
+    t_setup_NB = '''
+from Project1.src.NaiveBayes import NaiveBayes
+from Project1.src.LogisticRegression import LogisticRegression
+from Project1.src.Processor import Processor
+from Project1.src.Clean import Clean
+from Project1.src.CrossValidation import cross_validation
+
+path = "../datasets/tictactoe/tic-tac-toe.data"
+header = ["tl", "tm", "tr", "ml", "mm", "mr", "bl", "bm", "br", "result"]
+
+All = Processor.read(path, header)
+
+[X, Y] = Clean.ttt(All)
+
+print(X.shape)
+
+[X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
+
+model = NaiveBayes()
+if type(model) == NaiveBayes:
+    X_train = X_train.astype('float64')
+    Y_train = Y_train.astype('float64')
+        '''
+
+    t_setup_LR = '''
+from Project1.src.NaiveBayes import NaiveBayes
+from Project1.src.LogisticRegression import LogisticRegression
+from Project1.src.Processor import Processor
+from Project1.src.Clean import Clean
+from Project1.src.CrossValidation import cross_validation
+
+path = "../datasets/tictactoe/tic-tac-toe.data"
+header = ["tl", "tm", "tr", "ml", "mm", "mr", "bl", "bm", "br", "result"]
+
+All = Processor.read(path, header)
+
+[X, Y] = Clean.ttt(All)
+
+print(X.shape)
+
+[X_train, X_test, Y_train, Y_test] = Processor.split(X, Y, train=0.8)
+
+model = LogisticRegression()
+if type(model) == NaiveBayes:
+    X_train = X_train.astype('float64')
+    Y_train = Y_train.astype('float64')
+        '''
+
+    t_test_NB = '''
+w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train))
+            '''
+
+    t_test_LR = '''
+w = model.fit(X_train.to_numpy(), Processor.ToNumpyCol(Y_train), learning_rate=0.6, max_gradient=1e-2, max_iters=15000)
+        '''
+
+    print("timing t")
+    #t_timeNB = timeit.timeit(setup=t_setup_NB, stmt=t_test_NB, number=1000) / 1000
+    #t_timeLR = timeit.timeit(setup=t_setup_LR, stmt=t_test_LR, number=1000) / 1000
+    t_timeNB = timeit.timeit(setup=t_setup_NB, stmt=t_test_NB, number=100) / 100
+    t_timeLR = timeit.timeit(setup=t_setup_LR, stmt=t_test_LR, number=100) / 100
+    print("done")
+
+    #print(result)
+    data = {'Dataset': ['Adult', 'Ionosphere', 'Mammograph', 'Tic-Tac-Toe'],
+            'Execution Time (Naive Bayes)': [a_timeNB, i_timeNB, m_timeNB, t_timeNB],
+            'Execution Time (Logistic Regression)' : [a_timeLR, i_timeLR, m_timeLR, t_timeLR]}
+
+    df = pd.DataFrame(data)
+
+    df_to_table(df, 'time_table_all_final')
 
     # print(evaluate_acc(Processor.ToNumpyCol(Y_test), model.predict(X_test.to_numpy())))
 

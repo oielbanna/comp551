@@ -3,7 +3,6 @@ from Project1.src.NaiveBayes import NaiveBayes
 from Project1.src.Processor import Processor
 from Project1.src.Clean import Clean
 from Project1.src.CrossValidation import cross_validation
-import timeit
 import numpy as np
 import matplotlib.pyplot as plt
 
