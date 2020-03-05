@@ -7,9 +7,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import sklearn.metrics as metrics
 from sklearn.pipeline import Pipeline
 
-# from sklearn.externals.six import StringIO
-# import pydotplus
-# from IPython.display import Image
 
 from sklearn import tree
 from sklearn.model_selection import train_test_split
