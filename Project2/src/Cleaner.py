@@ -3,8 +3,6 @@ import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.preprocessing import Normalizer
 
-vectorizer = TfidfVectorizer()
-
 
 class Cleaner:
     @staticmethod
@@ -13,13 +11,14 @@ class Cleaner:
 
         # Pre-process the text data by applying tf-idf vectorization and normalizing
         if verbose:
-            print('Vectorizing data...')
+            print('Vectorizing data...')q
+        vectorizer = TfidfVectorizer()
         vect_train = vectorizer.fit_transform(X_train)
 
         if verbose:
             print('Normalizing data...')
-        normalizer = Normalizer().fit(X=vect_train)
-        norm_vect_train = normalizer.transform(vect_train)
+        normalizer = Normalizer()
+        norm_vect_train = normalizer.fit_transform(vect_train)
 
         return norm_vect_train, y
 
