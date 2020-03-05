@@ -3,35 +3,36 @@ import matplotlib.pyplot as plt
 
 import sklearn.datasets as datasets
 from sklearn.preprocessing import Normalizer
+from sklearn.feature_extraction.text import TfidfVectorizer
 import sklearn.metrics as metrics
 from sklearn.pipeline import Pipeline
 
-from sklearn.externals.six import StringIO
-import pydotplus
-from IPython.display import Image
+# from sklearn.externals.six import StringIO
+# import pydotplus
+# from IPython.display import Image
 
 from sklearn import tree
 from sklearn.model_selection import train_test_split
 
-newsgroups = datasets.fetch_20newsgroups_vectorized(subset='test', remove=('headers', 'footers', 'quotes'))
-x = newsgroups.data
-y = newsgroups.target
-clf = tree.DecisionTreeClassifier(max_depth = 400)
+newsgroups_train = datasets.fetch_20newsgroups_vectorized(subset='train', remove=('headers', 'footers', 'quotes'), shuffle=True)
+x = newsgroups_train.data
+y = newsgroups_train.target
+
 x_train,x_test,y_train,y_test = train_test_split(x,y)
 
+clf = tree.DecisionTreeClassifier(max_depth=400)
 norm = Normalizer().fit(x_train, y_train)
 x_train = norm.transform(x_train)
 
 fig = clf.fit(x_train,y_train)
-tree.plot_tree(fig)
+
+y_hat = clf.predict(x_test)
+
+print('Accuracy score on the training set ' + str(clf.score(x_train, y_train)))
+print('Accuracy score on the testing set ' + str(metrics.accuracy_score(y_test, y_hat)))
+# tree.plot_tree(fig)
 # plt.show()
 
-dot_data = StringIO()
-tree.export_graphviz(fig, out_file=dot_data)
-
-graph = pydotplus.graph_from_dot_data(dot_data.getvalue())
-# Image(graph.create_png())
-graph.write_png("i.png")
 """"
 # Get data and convert to numpy array when needed
 print('Fetching data...')
