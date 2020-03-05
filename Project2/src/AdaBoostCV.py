@@ -19,14 +19,13 @@ print('Normalizing data...')
 normalizer = Normalizer().fit(X=vect_train)
 norm_vect_train = normalizer.transform(vect_train)
 
-# Uncomment parameters to tune
-tuned_parameters = [{'learning_rate': [0.5, 0.7, 0.8, 0.9, 1.2, 1.5]}]
+tuned_parameters = [{'n_estimators': [125, 175, 200, 225]}]
 
 # 5-fold cross validation using an AdaBoost clf with fixed params
 print('Cross-validating...')
-clf = AdaBoostClassifier(n_estimators=50, random_state=0)
-clf = GridSearchCV(clf, tuned_parameters, cv=5, refit=False)
+clf = AdaBoostClassifier(learning_rate=0.8, random_state=0)
+clf = GridSearchCV(clf, tuned_parameters, cv=5, refit=False, verbose=3)
 clf.fit(norm_vect_train, y_train)
-scores = clf.cv_results_['mean_test_score']
+scores = clf.cv_results_['mean_test_score'].round(3)
 
 print('scores:', scores)
