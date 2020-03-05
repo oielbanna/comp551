@@ -11,7 +11,7 @@ class Cleaner:
 
         # Pre-process the text data by applying tf-idf vectorization and normalizing
         if verbose:
-            print('Vectorizing data...')q
+            print('Vectorizing data...')
         vectorizer = TfidfVectorizer()
         vect_train = vectorizer.fit_transform(X_train)
 
