@@ -17,11 +17,14 @@ X_test, y_test = fetch_20newsgroups(subset='test', remove=('headers', 'footers',
 X_train = np.array(X_train)
 X_test = np.array(X_test)
 
+
 # Pre-process the text data by applying tf-idf vectorization and normalizing
 print('Vectorizing data...')
 vectorizer = TfidfVectorizer()
 vect_train = vectorizer.fit_transform(X_train)
 vect_test = vectorizer.transform(X_test)
+
+print(vect_train)
 
 print('Normalizing data...')
 normalizer = Normalizer().fit(X=vect_train)
