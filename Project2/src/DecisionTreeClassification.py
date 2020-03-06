@@ -7,7 +7,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 import sklearn.metrics as metrics
 from sklearn.pipeline import Pipeline
 
-
+from sklearn.metrics import accuracy_score
 from sklearn import tree
 from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import train_test_split
@@ -70,21 +70,46 @@ y_hat = clf.predict(norm_vect_test)
 print('Accuracy score on the training set ' + str(clf.score(norm_vect_train, y_train)))
 print('Accuracy score on the testing set ' + str(accuracy_score(y_test, y_hat)))
 
-
 """
-newsgroups_train = datasets.fetch_20newsgroups(subset='train', remove=('headers', 'footers', 'quotes'), shuffle=True)
+
+
+newsgroups_train = datasets.fetch_20newsgroups(subset='train', remove=('headers', 'footers', 'quotes'), shuffle=False)
 
 x = newsgroups_train.data
 y = newsgroups_train.target
 
-x, y = Cleaner.newsgroups(x, y, verbose=True)
-tuned_parameters = [{'max_depth': [100, 150, 200, 250, 300, 350]}]
+x_train,x_test,y_train,y_test = train_test_split(x,y)
 
-# 5-fold cross validation using an AdaBoost clf with fixed params
-print('Cross-validating...')
-clf = tree.DecisionTreeClassifier(criterion='gini')
-clf = GridSearchCV(clf, tuned_parameters, cv=5, refit=False, verbose=3)
+x, y = Cleaner.newsgroups(x_train, y_train, verbose=True)
+# exit(1)
+x_test, y_test = Cleaner.newsgroups(x_test, y_test, verbose=True)
+
+print(x.shape, x_test.shape)
+
+# Instantiate model, train, and get predictions on test set
+print('Training model...')
+# clf = tree.DecisionTreeClassifier(criterion='gini', random_state=0)
+
+from sklearn.ensemble import AdaBoostClassifier
+clf = AdaBoostClassifier(n_estimators=125, learning_rate=0.8, random_state=0)
 clf.fit(x, y)
-scores = clf.cv_results_['mean_test_score'].round(3)
 
-print('scores:', scores)
+print('Predicting...')
+y_hat = clf.predict(x_test)
+
+# Evaluate the model
+print('Accuracy score on the training set ' + str(clf.score(x, y)))
+print('Accuracy score on the testing set ' + str(accuracy_score(y_test, y_hat)))
+
+
+
+# tuned_parameters = [{'max_depth': [100, 150, 200, 250, 300, 350]}]
+#
+# # 5-fold cross validation using an AdaBoost clf with fixed params
+# print('Cross-validating...')
+# clf = tree.DecisionTreeClassifier(criterion='gini')
+# clf = GridSearchCV(clf, tuned_parameters, cv=5, refit=False, verbose=3)
+# clf.fit(x, y)
+# scores = clf.cv_results_['mean_test_score'].round(3)
+#
+# print('scores:', scores)
