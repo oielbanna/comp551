@@ -80,25 +80,23 @@ y = newsgroups_train.target
 
 x_train,x_test,y_train,y_test = train_test_split(x,y)
 
-x, y = Cleaner.newsgroups(x_train, y_train, verbose=True)
-# exit(1)
-x_test, y_test = Cleaner.newsgroups(x_test, y_test, verbose=True)
+x_train = Cleaner.newsgroups(x_train, subset='train', verbose=True)
+x_test = Cleaner.newsgroups(x_test, subset='test', verbose=True)
 
-print(x.shape, x_test.shape)
+print(x_train.shape, x_test.shape)
 
-# Instantiate model, train, and get predictions on test set
 print('Training model...')
-# clf = tree.DecisionTreeClassifier(criterion='gini', random_state=0)
+clf = tree.DecisionTreeClassifier(criterion="gini",
+                                  random_state=0,)
+clf.fit(x_train, y_train)
 
-from sklearn.ensemble import AdaBoostClassifier
-clf = AdaBoostClassifier(n_estimators=125, learning_rate=0.8, random_state=0)
-clf.fit(x, y)
+print(clf.get_depth())
 
 print('Predicting...')
 y_hat = clf.predict(x_test)
 
 # Evaluate the model
-print('Accuracy score on the training set ' + str(clf.score(x, y)))
+print('Accuracy score on the training set ' + str(clf.score(x_train, y_train)))
 print('Accuracy score on the testing set ' + str(accuracy_score(y_test, y_hat)))
 
 
