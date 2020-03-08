@@ -18,8 +18,6 @@ stemmer = SnowballStemmer('english')
 
 def custom_tokenizer(doc):
     doc = re.sub(r"[@\-!/\\#&()*{`}±~'<?^>$.:\[\]|;_,=]+", '', doc)
-    if "'" in doc:
-        print(doc)
     tokens = word_tokenize(doc.strip())
     stemmed = [stemmer.stem(token) for token in tokens]
     # print(stemmed)
@@ -30,7 +28,7 @@ vectorizer = TfidfVectorizer(strip_accents='ascii', lowercase=True,
                              tokenizer=custom_tokenizer,
                              analyzer='word', stop_words=sw,
                              ngram_range=(1, 3),
-                             max_features=22000,
+                             max_features=20000,
                              max_df=0.95)
 
 normalizer = Normalizer()

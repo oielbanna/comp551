@@ -1,7 +1,7 @@
 from Project2.src.Cleaner import Cleaner
 import sklearn.datasets as datasets
 
-from sklearn import tree
+from sklearn import ensemble
 from sklearn.model_selection import GridSearchCV
 
 newsgroups_train = datasets.fetch_20newsgroups(subset='train', remove=('headers', 'footers', 'quotes'), shuffle=False)
@@ -33,18 +33,20 @@ y = newsgroups_train.target
 
 x = Cleaner.newsgroups(x, subset='train', verbose=True)
 
-tuned_parameters = [{'criterion': ['gini', 'entropy']}]
+# tuned_parameters = [{'n_estimators': [100, 150, 200, 250]}]
+tuned_parameters = [{'warm_start': [True, False]}]
 
 # 5-fold cross validation using a DecisionTree clf with fixed params
 print('Cross-validating...')
-clf = tree.DecisionTreeClassifier(
+clf = ensemble.RandomForestClassifier(
     criterion='gini',
-    splitter='best',
     max_depth=450,
     min_impurity_decrease=0,
     max_leaf_nodes=600,
     random_state=30,
-
+    n_estimators=200,
+    # warm_start=True,
+    oob_score=True
 )
 clf = GridSearchCV(clf, tuned_parameters, cv=5, refit=False, verbose=3)
 clf.fit(x, y)
