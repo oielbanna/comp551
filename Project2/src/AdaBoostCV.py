@@ -1,3 +1,6 @@
+"""
+This script is an example of how we tune hyperparameters by using the GridSearchCV model from Sklearn.
+"""
 import numpy as np
 from sklearn.datasets import fetch_20newsgroups
 from sklearn.ensemble import AdaBoostClassifier

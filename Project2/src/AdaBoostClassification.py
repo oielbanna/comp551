@@ -4,7 +4,6 @@ The hyper parameters used were chosen using the crossvalidation script: AdaBoost
 """
 from sklearn.datasets import fetch_20newsgroups
 from sklearn.ensemble import AdaBoostClassifier
-from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score
 from Project2.src.Cleaner import Cleaner
 
@@ -18,12 +17,12 @@ norm_vect_test = Cleaner.newsgroups(X_test, subset='test', verbose=True)
 
 # Instantiate model, train, and get predictions on test set
 print('Training model...')
-clf = AdaBoostClassifier(base_estimator=DecisionTreeClassifier(max_depth=2), n_estimators=125, learning_rate=0.8)
+clf = AdaBoostClassifier(n_estimators=125, learning_rate=0.5, random_state=0)
 clf.fit(norm_vect_train, y_train)
 
 print('Predicting...')
 y_hat = clf.predict(norm_vect_test)
 
 # Evaluate the model
-print('Accuracy score on the training set ' + str(clf.score(norm_vect_train, y_train)))
-print('Accuracy score on the testing set ' + str(accuracy_score(y_test, y_hat)))
+print('Accuracy score on the training set ' + str(round(clf.score(norm_vect_train, y_train), 3)))
+print('Accuracy score on the testing set ' + str(round(accuracy_score(y_test, y_hat), 3)))
