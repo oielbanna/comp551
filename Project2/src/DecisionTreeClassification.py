@@ -38,7 +38,7 @@ y = newsgrous_train['target']
 # print('Accuracy score on the testing set ' + str(accuracy_score(y_test, y_hat)))
 
 
-x = Cleaner.newsgroups(x, subset='train', verbose=True)
+x = Cleaner.clean(x, subset='train', verbose=True)
 
 tuned_parameters = [{"n_estimators": [10, 50, 100, 150]}]
 
