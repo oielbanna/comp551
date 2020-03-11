@@ -1,9 +1,9 @@
 """
-This script is used for the final evaluation of the AdaBoost model.
-The hyper parameters used were chosen using the crossvalidation script: AdaBoostCV.py
+This script is used for the final evaluation of the KNN model.
+The hyper parameters used were chosen using the crossvalidation script: KNNCV.py
 """
 from sklearn.datasets import fetch_20newsgroups
-from sklearn.ensemble import AdaBoostClassifier
+from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import accuracy_score
 from Project2.src.Cleaner import Cleaner
 
@@ -17,7 +17,7 @@ norm_vect_test = Cleaner.newsgroups(X_test, subset='test', verbose=True)
 
 # Instantiate model, train, and get predictions on test set
 print('Training model...')
-clf = AdaBoostClassifier(n_estimators=125, learning_rate=0.5, random_state=0)
+clf = KNeighborsClassifier(n_neighbors=5, weights='uniform', p=2)
 clf.fit(norm_vect_train, y_train)
 
 print('Predicting...')
