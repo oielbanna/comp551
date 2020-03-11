@@ -17,7 +17,7 @@ stemmer = SnowballStemmer('english')
 
 
 def custom_tokenizer(doc):
-    doc = re.sub(r"[@\-!/\\#&()*{`}±~'<?^>$.:\[\]|;_,=]+", '', doc)
+    doc = re.sub(r"[@\-/\\#&()*{`}±~'<?^>$.:\[\]|;_,=]+", '', doc)
     tokens = word_tokenize(doc.strip())
     stemmed = [stemmer.stem(token) for token in tokens]
     # print(stemmed)
@@ -59,5 +59,23 @@ class Cleaner:
         return norm_vect_train
 
     @staticmethod
-    def IMDB(X, verbose=False):
-        pass
+    def IMDB(X, subset, verbose=False):
+        X_train = np.array(X)
+
+        if verbose:
+            print('Vectorizing {} data...'.format(subset))
+
+        if subset == 'train':
+            vect_train = vectorizer.fit_transform(X_train)
+        elif subset == 'test':
+            vect_train = vectorizer.transform(X_train)
+        else:
+            raise ValueError
+
+        print(vectorizer.get_feature_names())
+        if verbose:
+            print('Normalizing {} data...'.format(subset))
+
+        norm_vect_train = normalizer.transform(vect_train)
+
+        return norm_vect_train

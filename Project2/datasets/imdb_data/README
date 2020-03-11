@@ -46,7 +46,7 @@ review page.
 
 In addition to the review text files, we include already-tokenized bag
 of words (BoW) features that were used in our experiments. These 
-are stored in .feat files in the train/test directories. Each .feat
+are stored in .feat files dza` in the train/test directories. Each .feat
 file is in LIBSVM format, an ascii sparse-vector format for labeled
 data.  The feature indices in these files start from 0, and the text
 tokens corresponding to a feature index is found in [imdb.vocab]. So a
