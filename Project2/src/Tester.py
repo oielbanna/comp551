@@ -84,15 +84,15 @@ def getModel(dataset, model):
 
     elif model == Models.LogisticRegression:
         if dataset == "IMDB":
-            return linear_model.LogisticRegression()
+            return linear_model.LogisticRegression(C=1.0, dual=False, max_iter=1000, penalty='l1', solver='liblinear', tol=0.1)
         else:
-            return linear_model.LogisticRegression()
+            return linear_model.LogisticRegression(C=1.0, dual=False, max_iter=100, penalty='l2', solver='saga', tol=0.01)
 
     elif model == Models.SVM:
         if dataset == "IMDB":
-            return svm.LinearSVC()
+            return svm.LinearSVC(C=0.1, dual=False, loss='squared_hinge', max_iter=1000, penalty='l2', tol=0.1)
         else:
-            return svm.LinearSVC()
+            return svm.LinearSVC(C=1.0, dual=True, fit_intercept=True, loss='squared_hinge', max_iter=5000, penalty='l2', tol=0.01)
 
 
 class Tester:
