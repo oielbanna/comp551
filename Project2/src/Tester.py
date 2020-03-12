@@ -39,17 +39,27 @@ def getModel(dataset, model):
             )
         else:
             return ensemble.RandomForestClassifier(
+                min_impurity_decrease=0.0001,
+                random_state=30,
                 criterion='gini',
-                max_depth=450,
-                max_features=None,
-                min_impurity_decrease=0,
-                n_estimators=300,
-                oob_score=True,
-                random_state=30
+                ccp_alpha=0.0002,
+                max_depth=200,
+                max_features=0.4,
+                n_estimators=90
             )
 
     elif model == Models.DecisionTree:
         if dataset == "IMDB":
+            return tree.DecisionTreeClassifier(
+                max_depth=600,
+                min_impurity_decrease=0.0001,
+                max_leaf_nodes=100,
+                max_features=0.8,
+                splitter="random",
+                ccp_alpha=0.00025,
+                criterion='gini'
+            )
+        else:
             return tree.DecisionTreeClassifier(
                 max_depth=450,
                 min_impurity_decrease=0.0001,
@@ -59,16 +69,6 @@ def getModel(dataset, model):
                 criterion='gini',
                 splitter="best",
                 ccp_alpha=0.00055
-            )
-        else:
-            return tree.DecisionTreeClassifier(
-                max_depth=600,
-                min_impurity_decrease=0.0001,
-                max_leaf_nodes=100,
-                max_features=0.8,
-                splitter="random",
-                ccp_alpha=0.00025,
-                criterion='gini',
             )
     elif model == Models.AdaBoost:
         if dataset == "IMDB":

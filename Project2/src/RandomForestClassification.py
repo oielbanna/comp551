@@ -33,23 +33,23 @@ y = newsgroups_train.target
 
 x = Cleaner.clean(x, subset='train', verbose=True)
 
-# tuned_parameters = [{'n_estimators': [100, 150, 200, 250]}]
-tuned_parameters = [{'warm_start': [True, False]}]
+tuned_parameters = [{'n_estimators': [50, 90, 120],
+                     "max_depth": [200, 300, 400],
+                     "max_leaf_nodes": [200, 300, 500, 600],
+                     "max_features": [0.4, 0.8, None]}]
 
 # 5-fold cross validation using a DecisionTree clf with fixed params
 print('Cross-validating...')
 clf = ensemble.RandomForestClassifier(
-    criterion='gini',
-    max_depth=450,
-    min_impurity_decrease=0,
-    max_leaf_nodes=600,
+    min_impurity_decrease=0.0001,
     random_state=30,
-    n_estimators=200,
-    # warm_start=True,
-    oob_score=True
+    criterion='gini',
+    ccp_alpha=0.0002
 )
-clf = GridSearchCV(clf, tuned_parameters, cv=5, refit=False, verbose=3)
+clf = GridSearchCV(clf, tuned_parameters, cv=5, refit=True, verbose=3, n_jobs=-1)
 clf.fit(x, y)
 scores = clf.cv_results_['mean_test_score'].round(3)
+print("The best parameters are %s with a score of %0.3f"
+      % (clf.best_params_, clf.best_score_))
 
 print('scores:', scores)
