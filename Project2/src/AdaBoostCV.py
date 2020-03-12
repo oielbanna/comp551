@@ -1,3 +1,4 @@
+
 """
 This script is an example of how we tune hyperparameters by using the GridSearchCV model from Sklearn.
 """
@@ -24,3 +25,4 @@ clf.fit(norm_vect_train, y_train)
 scores = clf.cv_results_['mean_test_score'].round(3)
 
 print('scores:', scores)
+
