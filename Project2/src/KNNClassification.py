@@ -12,8 +12,8 @@ print('Fetching data...')
 X_train, y_train = fetch_20newsgroups(subset='train', remove=('headers', 'footers', 'quotes'), return_X_y=True)
 X_test, y_test = fetch_20newsgroups(subset='test', remove=('headers', 'footers', 'quotes'), return_X_y=True)
 
-norm_vect_train = Cleaner.newsgroups(X_train, subset='train', verbose=True)
-norm_vect_test = Cleaner.newsgroups(X_test, subset='test', verbose=True)
+norm_vect_train = Cleaner.clean(X_train, subset='train', verbose=True)
+norm_vect_test = Cleaner.clean(X_test, subset='test', verbose=True)
 
 # Instantiate model, train, and get predictions on test set
 print('Training model...')

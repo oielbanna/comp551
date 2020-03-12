@@ -3,11 +3,18 @@ import sklearn.datasets as datasets
 
 from sklearn import tree
 from sklearn.model_selection import GridSearchCV
+from sklearn import ensemble
+import pandas as pd
 
-newsgroups_train = datasets.fetch_20newsgroups(subset='train', remove=('headers', 'footers', 'quotes'), shuffle=False)
+# newsgroups_train = datasets.fetch_20newsgroups(subset='train', remove=('headers', 'footers', 'quotes'), shuffle=False)
+path = "../datasets/train_reviews.csv"
+newsgrous_train = pd.read_csv(path, skipinitialspace=True)
 
-x = newsgroups_train.data
-y = newsgroups_train.target
+x = newsgrous_train['reviews']
+y = newsgrous_train['target']
+
+# x = newsgroups_train.data
+# y = newsgroups_train.target
 #
 # x_train,x_test,y_train,y_test = train_test_split(x,y)
 #
@@ -31,23 +38,24 @@ y = newsgroups_train.target
 # print('Accuracy score on the testing set ' + str(accuracy_score(y_test, y_hat)))
 
 
-x = Cleaner.newsgroups(x, subset='train', verbose=True)
+x = Cleaner.clean(x, subset='train', verbose=True)
 
-tuned_parameters = [{'criterion': ['gini', 'entropy']}]
+tuned_parameters = [{"n_estimators": [10, 50, 100, 150]}]
 
 # 5-fold cross validation using a DecisionTree clf with fixed params
 print('Cross-validating...')
-clf = tree.DecisionTreeClassifier(
+clf = ensemble.RandomForestClassifier(
     criterion='gini',
-    splitter='best',
-    max_depth=450,
-    min_impurity_decrease=0,
-    max_leaf_nodes=600,
-    random_state=30,
+    max_depth=600,
+    max_features=0.8,
+    max_leaf_nodes=100,
+    min_impurity_decrease=0.0001
 
 )
-clf = GridSearchCV(clf, tuned_parameters, cv=5, refit=False, verbose=3)
+clf = GridSearchCV(clf, tuned_parameters, cv=5, refit=True, verbose=3, n_jobs=-1)
 clf.fit(x, y)
 scores = clf.cv_results_['mean_test_score'].round(3)
+print("The best parameters are %s with a score of %0.3f"
+      % (clf.best_params_, clf.best_score_))
 
 print('scores:', scores)

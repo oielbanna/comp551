@@ -14,7 +14,7 @@ print('Fetching data...')
 X_train, y_train = fetch_20newsgroups(subset='train', remove=('headers', 'footers', 'quotes'), return_X_y=True)
 X_train = np.array(X_train)
 
-norm_vect_train = Cleaner.newsgroups(X_train, subset='train', verbose=True)
+norm_vect_train = Cleaner.clean(X_train, subset='train', verbose=True)
 
 tuned_parameters = [{'n_neighbors': [25, 50, 100, 150],
                      'weights': ['uniform', 'distance'],
