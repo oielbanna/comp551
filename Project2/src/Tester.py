@@ -71,9 +71,9 @@ def getModel(dataset, model):
             )
     elif model == Models.AdaBoost:
         if dataset == "IMDB":
-            return ensemble.AdaBoostClassifier()
+            return ensemble.AdaBoostClassifier(n_estimators=300, learning_rate=0.7, random_state=0)
         else:
-            return ensemble.AdaBoostClassifier()
+            return ensemble.AdaBoostClassifier(n_estimators=125, learning_rate=0.5, random_state=0)
 
     elif model == Models.KNN:
         if dataset == "IMDB":
