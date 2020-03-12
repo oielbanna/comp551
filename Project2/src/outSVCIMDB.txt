@@ -1,0 +1,552 @@
+Fetching data...
+Vectorizing train data...
+
+Normalizing train data...
+Cross-validating...
+Fitting 5 folds for each of 54 candidates, totalling 270 fits
+[CV] C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.860, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.853, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.854, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.858, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.871, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.860, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.853, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.854, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.859, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.871, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.860, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.853, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.854, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.859, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.871, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.860, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.853, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.854, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.859, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.871, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.860, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.853, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.854, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.859, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.871, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.860, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.853, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.854, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.859, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.871, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.860, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.853, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.854, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.858, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.871, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.860, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.853, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.854, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.859, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.871, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.860, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.853, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.854, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.859, total=   0.1s
+[CV] C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.871, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.872, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.859, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.858, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.864, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.871, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.872, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.859, total=   0.2s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.858, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.864, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.871, total=   0.2s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.872, total=   0.2s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.859, total=   0.2s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.858, total=   0.2s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.864, total=   0.2s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.871, total=   0.2s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.872, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.859, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.858, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.864, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.871, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.872, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.859, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.858, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.864, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.871, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.872, total=   0.2s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.859, total=   0.2s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.858, total=   0.2s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.864, total=   0.2s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.871, total=   0.2s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.872, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.859, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.858, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.864, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.871, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.872, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.859, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.858, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.864, total=   0.1s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.871, total=   0.2s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.872, total=   0.2s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.859, total=   0.2s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.858, total=   0.2s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.864, total=   0.2s
+[CV] C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=0.1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.871, total=   0.2s
+[CV] C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.860, total=   0.2s
+[CV] C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.839, total=   0.2s
+[CV] C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.846, total=   0.2s
+[CV] C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.855, total=   0.2s
+[CV] C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.862, total=   0.4s
+[CV] C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.860, total=   0.3s
+[CV] C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.838, total=   0.7s
+[CV] C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.846, total=   0.2s
+[CV] C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.855, total=   0.2s
+[CV] C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.862, total=   0.4s
+[CV] C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.860, total=   0.4s
+[CV] C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.838, total=   1.2s
+[CV] C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.846, total=   0.4s
+[CV] C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.855, total=   0.5s
+[CV] C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.862, total=   0.6s
+[CV] C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.860, total=   0.2s
+[CV] C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.839, total=   0.2s
+[CV] C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.846, total=   0.2s
+[CV] C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.855, total=   0.2s
+[CV] C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.862, total=   0.3s
+[CV] C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.860, total=   0.3s
+[CV] C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.838, total=   0.5s
+[CV] C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.846, total=   0.2s
+[CV] C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.855, total=   0.2s
+[CV] C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.862, total=   0.5s
+[CV] C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.860, total=   0.5s
+[CV] C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.838, total=   1.3s
+[CV] C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.846, total=   0.3s
+[CV] C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.855, total=   0.4s
+[CV] C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.862, total=   0.4s
+[CV] C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.860, total=   0.2s
+[CV] C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.838, total=   0.2s
+[CV] C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.846, total=   0.2s
+[CV] C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.855, total=   0.2s
+[CV] C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.862, total=   0.5s
+[CV] C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.860, total=   0.3s
+[CV] C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.838, total=   0.6s
+[CV] C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.846, total=   0.2s
+[CV] C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.855, total=   0.2s
+[CV] C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.862, total=   0.5s
+[CV] C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.860, total=   0.4s
+[CV] C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.838, total=   1.3s
+[CV] C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.846, total=   0.3s
+[CV] C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.855, total=   0.4s
+[CV] C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.862, total=   0.5s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.856, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.826, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.841, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.843, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.851, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.856, total=   0.3s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.826, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.841, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.843, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.851, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.856, total=   0.4s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.826, total=   0.4s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.841, total=   0.4s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.843, total=   0.4s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.851, total=   0.4s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.856, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.826, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.841, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.843, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.851, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.856, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.826, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.841, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.843, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.851, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.856, total=   0.4s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.826, total=   0.4s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.841, total=   0.4s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.843, total=   0.4s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.851, total=   0.4s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.856, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.826, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.840, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.843, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.852, total=   0.1s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.856, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.826, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.841, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.843, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.851, total=   0.2s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.856, total=   0.4s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.826, total=   0.4s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.841, total=   0.4s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.843, total=   0.4s
+[CV] C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=1, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.851, total=   0.4s
+[CV] C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.828, total=   0.4s
+[CV] C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.792, total=   0.5s
+[CV] C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.806, total=   0.4s
+[CV] C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.813, total=   0.4s
+[CV] C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.820, total=   0.4s
+[CV] C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.828, total=   0.6s
+[CV] C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.792, total=   0.7s
+[CV] C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.806, total=   0.7s
+[CV] C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.813, total=   0.7s
+[CV] C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.820, total=   0.6s
+[CV] C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.828, total=   1.2s
+[CV] C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.792, total=   1.2s
+[CV] C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.806, total=   1.8s
+[CV] C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.813, total=   1.4s
+[CV] C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.820, total=   1.2s
+[CV] C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.828, total=   0.4s
+[CV] C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.792, total=   0.4s
+[CV] C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.806, total=   0.4s
+[CV] C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.813, total=   0.4s
+[CV] C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.820, total=   0.4s
+[CV] C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.828, total=   0.6s
+[CV] C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.792, total=   0.7s
+[CV] C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.806, total=   0.8s
+[CV] C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.813, total=   0.8s
+[CV] C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.820, total=   0.7s
+[CV] C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.828, total=   1.2s
+[CV] C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.792, total=   1.8s
+[CV] C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.806, total=   1.3s
+[CV] C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.813, total=   1.5s
+[CV] C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.820, total=   1.3s
+[CV] C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.828, total=   0.4s
+[CV] C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.792, total=   0.5s
+[CV] C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.806, total=   0.4s
+[CV] C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.813, total=   0.5s
+[CV] C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.820, total=   0.4s
+[CV] C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.828, total=   0.7s
+[CV] C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.792, total=   0.6s
+[CV] C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.806, total=   0.7s
+[CV] C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.813, total=   0.7s
+[CV] C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.820, total=   0.6s
+[CV] C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.828, total=   1.2s
+[CV] C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.792, total=   1.2s
+[CV] C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.806, total=   1.3s
+[CV] C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.813, total=   1.6s
+[CV] C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.820, total=   1.2s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.834, total=   0.4s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.797, total=   0.4s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.813, total=   0.4s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.820, total=   0.4s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.01, score=0.827, total=   0.4s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.834, total=   0.8s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.797, total=   0.8s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.813, total=   0.8s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.820, total=   0.9s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=0.0001, score=0.827, total=   0.8s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.834, total=   1.8s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.797, total=   1.7s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.813, total=   2.4s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.820, total=   1.7s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=10000, penalty=l2, tol=1e-08, score=0.827, total=   1.7s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.834, total=   0.4s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.797, total=   0.4s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.813, total=   0.4s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.820, total=   0.4s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.01, score=0.827, total=   0.4s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.834, total=   0.8s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.797, total=   0.8s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.813, total=   0.9s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.820, total=   0.9s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=0.0001, score=0.827, total=   0.8s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.834, total=   1.8s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.797, total=   1.7s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.813, total=   2.0s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.820, total=   1.8s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=25000, penalty=l2, tol=1e-08, score=0.827, total=   1.8s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.834, total=   0.4s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.797, total=   0.3s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.813, total=   0.5s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.820, total=   0.4s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.01, score=0.827, total=   0.4s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.834, total=   0.9s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.797, total=   0.9s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.813, total=   0.9s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.820, total=   0.9s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=0.0001, score=0.827, total=   1.0s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.834, total=   1.9s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.797, total=   1.7s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.813, total=   1.7s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.820, total=   2.0s
+[CV] C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08 
+[CV]  C=10, dual=True, loss=squared_hinge, max_iter=50000, penalty=l2, tol=1e-08, score=0.827, total=   1.7s
+scores: [0.859 0.859 0.859 0.859 0.859 0.859 0.859 0.859 0.859 0.865 0.865 0.865
+ 0.865 0.865 0.865 0.865 0.865 0.865 0.852 0.852 0.852 0.852 0.852 0.852
+ 0.852 0.852 0.852 0.843 0.843 0.843 0.843 0.843 0.843 0.843 0.843 0.843
+ 0.812 0.812 0.812 0.812 0.812 0.812 0.812 0.812 0.812 0.818 0.818 0.818
+ 0.818 0.818 0.818 0.818 0.818 0.818]
+The best parameters are {'C': 0.1, 'dual': True, 'loss': 'squared_hinge', 'max_iter': 10000, 'penalty': 'l2', 'tol': 0.01} with a score of 0.86
