@@ -34,8 +34,7 @@ def getModel(dataset, model):
                 max_features=0.8,
                 max_leaf_nodes=100,
                 min_impurity_decrease=0.0001,
-                n_estimators=50,
-                oob_score=True
+                n_estimators=50
             )
         else:
             return ensemble.RandomForestClassifier(
