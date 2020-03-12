@@ -2,7 +2,12 @@ import numpy as np
 from sklearn.datasets import fetch_20newsgroups
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import GridSearchCV
-from Project2.src.Cleaner import Cleaner
+import string
+import numpy as np
+
+
+
+
 
 # Get data and convert to numpy array when needed
 print('Fetching data...')
