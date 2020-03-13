@@ -20,6 +20,7 @@ dependencies:
   - mkl-service=2.3.0
   - mkl_fft=1.0.15
   - mkl_random=1.1.0
+  - nltk=3.4.5
   - numpy=1.18.1
   - numpy-base=1.18.1
   - openssl=1.1.1d

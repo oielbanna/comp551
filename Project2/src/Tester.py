@@ -77,9 +77,9 @@ def getModel(dataset, model):
 
     elif model == Models.KNN:
         if dataset == "IMDB":
-            return neighbors.KNeighborsClassifier()
+            return neighbors.KNeighborsClassifier(n_neighbors=525, weights='uniform', p=2)
         else:
-            return neighbors.KNeighborsClassifier()
+            return neighbors.KNeighborsClassifier(n_neighbors=600, weights='uniform', p=2)
 
     elif model == Models.LogisticRegression:
         if dataset == "IMDB":
