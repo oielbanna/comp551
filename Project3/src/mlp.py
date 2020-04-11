@@ -11,11 +11,6 @@ def relu(z):
     return result
 
 
-def sigmoid(z):
-    result = 1.0 / (1.0 + np.exp(-z))
-    return result
-
-
 def logsumexp(Z): # NxC
     Zmax = np.max(Z, axis=1)[:, None]
     lse = Zmax + np.log(np.sum(np.exp(Z - Zmax), axis=1))[:, None]
@@ -25,6 +20,10 @@ def logsumexp(Z): # NxC
 def softmax(u): # N x C
     u_exp = np.exp(u - np.max(u, 1)[:, None])
     return u_exp / np.sum(u_exp, axis=-1)[:, None]
+
+def sigmoid(z):
+    result = 1.0 / (1.0 + np.exp(-z))
+    return result
 
 
 class MLP:
@@ -83,3 +82,23 @@ class MLP:
         dZ = np.dot(dY, W.T)  # N x M
         dV = np.dot(X.T, dZ * Z * (1 - Z)) / N  # D x M
         return dW, dV
+
+    def feedforward(self, x):
+        input_layer = x
+        a = self.n_layers * [None]
+        z = self.n_layers * [None]
+        output_layer = 0.0
+
+        for layer in range(self.n_layers-1):
+            a[layer] = input_layer
+            z[layer+1] = np.dot(input_layer, self.weights[layer].tranpose())
+
+            if self.activation_func == 'sigmoid':
+                output_layer = sigmoid(z[layer+1])
+            elif self.activation_func == 'relu':
+                output_layer = relu(z[layer+1])
+
+            input_layer = output_layer
+
+        a[self.n_layers-1] = output_layer
+        return a, z
