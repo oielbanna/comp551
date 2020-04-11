@@ -23,3 +23,4 @@ classes = ('plane', 'car', 'bird', 'cat',
 
 mlp = MLP([2, 3, 2], 'relu')
 # print(mlp.weights[0])
+
