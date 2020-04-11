@@ -27,7 +27,7 @@ def sigmoid(z):
     return result
 
 
-class mlp():
+class MLP:
 
     def __init__(self, size_per_layer, activation_func):
         self.layer_size = size_per_layer
