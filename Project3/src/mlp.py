@@ -27,6 +27,7 @@ def sigmoid(z):
     return result
 
 
+
 class MLP:
 
     def __init__(self, size_per_layer, activation_func):
@@ -74,3 +75,23 @@ class MLP:
         dZ = np.dot(dY, W.T)  # N x M
         dV = np.dot(X.T, dZ * Z * (1 - Z)) / N  # D x M
         return dW, dV
+
+    def feedforward(self, x):
+        input_layer = x
+        a = self.n_layers * [None]
+        z = self.n_layers * [None]
+        output_layer = 0.0
+
+        for layer in range(self.n_layers-1):
+            a[layer] = input_layer
+            z[layer+1] = np.dot(input_layer, self.weights[layer].tranpose())
+
+            if self.activation_func == 'sigmoid':
+                output_layer = sigmoid(z[layer+1])
+            elif self.activation_func == 'relu':
+                output_layer = relu(z[layer+1])
+
+            input_layer = output_layer
+
+        a[self.n_layers-1] = output_layer
+        return a, z
