@@ -11,6 +11,11 @@ def relu(z):
     return result
 
 
+def sigmoid(z):
+    result = 1.0 / (1.0 + np.exp(-z))
+    return result
+
+
 def logsumexp(Z): # NxC
     Zmax = np.max(Z, axis=1)[:, None]
     lse = Zmax + np.log(np.sum(np.exp(Z - Zmax), axis=1))[:, None]
@@ -22,11 +27,6 @@ def softmax(u): # N x C
     return u_exp / np.sum(u_exp, axis=-1)[:, None]
 
 
-def sigmoid(z):
-    result = 1.0 / (1.0 + np.exp(-z))
-    return result
-
-
 class MLP:
 
     def __init__(self, size_per_layer, activation_func):
@@ -34,7 +34,7 @@ class MLP:
         self.n_layers = len(size_per_layer)
         self.activation_func = activation_func
 
-        self.initialize_weights()
+        self.weights = self.initialize_weights()
 
     def train(self, X, Y):
         pass
@@ -43,7 +43,16 @@ class MLP:
         pass
 
     def initialize_weights(self):
-        pass
+        weights = []
+        for i in range(0, self.n_layers - 1):
+            size_layer = self.layer_size[i]
+            size_next_layer = self.layer_size[i + 1]
+            if self.activation_func == 'sigmoid':
+                theta_tmp = ((np.random.rand(size_next_layer, size_layer) * 2.0) - 1)
+            elif self.activation_func == 'relu':
+                theta_tmp = (np.random.rand(size_next_layer, size_layer))
+            weights.append(theta_tmp)
+        return np.asarray(weights)
 
     def GD(self, X, Y, M, lr=.1, eps=1e-9, max_iters=100000):
         N, D = X.shape
