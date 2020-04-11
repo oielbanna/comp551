@@ -54,7 +54,7 @@ class MLP:
             weights.append(theta_tmp)
         return np.asarray(weights)
 
-    def GD(self, X, Y, M, lr=.1, eps=1e-9, max_iters=100000):
+    def GD(self, X, Y, M, learning_rate=.1, eps=1e-9, max_iters=100000):
         N, D = X.shape
         N, K = Y.shape
 
@@ -64,8 +64,8 @@ class MLP:
         t = 0
         while np.linalg.norm(dW) > eps and t < max_iters:
             dW, dV = self.gradients(X, Y, W, V)
-            W = W - lr * dW
-            V = V - lr * dV
+            W = W - learning_rate * dW
+            V = V - learning_rate * dV
             t += 1
         return W, V
 
