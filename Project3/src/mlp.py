@@ -28,14 +28,15 @@ def sigmoid(z):
     return result
 
 
-def sigmoid_derivative(z):
-    result = sigmoid(z) * (1 - sigmoid(z))
-    return result
+def sigmoid_derivative(dA, z):
+    sig = sigmoid(z)
+    return dA * sig * (1 - sig)
 
 
-def relu_derivative(z):
-    result = 1 * (z > 0)
-    return result
+def relu_derivative(dA, Z):
+    dZ = np.array(dA, copy = True)
+    dZ[Z <= 0] = 0;
+    return dZ;
 
 
 class MLP:
@@ -105,10 +106,16 @@ class MLP:
         activations = []
         inputs = X
         for layer in range(self.n_layers - 1):
-            if layer == self.n_layers - 1:
-                A, Z = self.single_forward_propagation(inputs, self.weights[layer], softmax)
-            else:
-                A, Z = self.single_forward_propagation(inputs, self.weights[layer], relu)
+            if self.activation_func == 'relu':
+                if layer == self.n_layers - 1:
+                    A, Z = self.single_forward_propagation(inputs, self.weights[layer], softmax)
+                else:
+                    A, Z = self.single_forward_propagation(inputs, self.weights[layer], relu)
+            elif self.activation_func == 'sigmoid':
+                if layer == self.n_layers - 1:
+                    A, Z = self.single_forward_propagation(inputs, self.weights[layer], softmax)
+                else:
+                    A, Z = self.single_forward_propagation(inputs, self.weights[layer], sigmoid)
             activations.append(Z)
         return np.asarray(activations), A
 
@@ -123,31 +130,35 @@ class MLP:
     
     Questions: why feed forward at every iteration?? Its doing that with regular GD as well. When GD calls gradient() at every iteration gradient is running feedforward
     WHYYYYYYYYYY AHHHHHHHHH, '''
-    def backward(self, X, Y, learning_rate=.1, eps=1e-9, max_iters=100000, batch_size=0.3):
+    def backpropogation(self, X, Y, learning_rate=.1, eps=1e-9, max_iters=100000, batch_size=0.3):
+        # batch the data radomly
+        X_batch, Y_batch = self.batch(X, Y, batch_size=batch_size)
+
+        # cost should be computed in the backprop stage
+        Z, Yhat = self.feedforward(X_batch)
+        dZ = [] * Z.shape
+        dW = [] * Z.shape
+        dV = [] * Z.shape
+
+        dA = - (np.divide(Y, Yhat) - np.divide(1 - Y, 1 - Yhat))
         N, D = X.shape
         t = 0
-        while np.linalg.norm(dW) > eps and t < max_iters:
-            # batch the data radomly
-            X_batch, Y_batch = self.batch(X, Y, batch_size=batch_size)
+        #while np.linalg.norm(dW) > eps and t < max_iters:
+        for layer in np.arrange(self.n_layers - 2, 0, -1):
 
-            # do forward here, break up gradients function
-            # cost should be computed in the backprop stage
-            Z, Yh = self.feedforward(X_batch)
+            dY = self.SSD(Yhat, Y_batch)  # cost
 
-            dY = self.SSD(Yh, Y_batch)  # cost
+            if self.activation_func == 'sigmoid':
+                dZ[layer] = sigmoid_derivative(dA, Z[layer]) # D x M
+            elif self.activation_func == 'relu':
+                dZ[layer] = relu_derivative(dA, Z[layer]) # D x M
 
             # Something happens after
-            dW = np.dot(Z.T, dY) / N  # M x K
-            dZ = np.dot(dY, W.T)  # N x M
+            dW[layer] = np.dot(dZ[layer], Yhat[layer+1].T) / N  # M x K
+            dV[layer] = np.sum(dZ[layer], axis=1, keepdims=True) / N
+            dA = np.dot(self.weights[layer].T, dZ[layer])
 
-            # calculate derivative
-            dV = np.dot(X.T, dZ * Z * (1 - Z)) / N  # D x M
-
-            # last part of back propogation
-            W = W - learning_rate * dW
-            V = V - learning_rate * dV
-            t += 1
-        return W, V
+        return dW, dV
 
 
     def SSD(self, Yh, Y):
