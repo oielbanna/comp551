@@ -89,6 +89,39 @@ class MLP:
             t += 1
         return W, V
 
+    def forward(self, X, W, V):
+        Z = self.logistic(np.dot(X, V))  # N x M
+        Yh = softmax(np.dot(Z, W))  # N x K
+
+        return Z, Yh
+
+    def backward(self, X, Y, W, V, M, learning_rate=.1, eps=1e-9, max_iters=100000):
+        N, D = X.shape
+        t = 0
+        while np.linalg.norm(dW) > eps and t < max_iters:
+            # batch the data radomly first
+
+            # do forward here, break up gradients function
+            # cost should be computed in the backprop stage
+            Z, Yh = self.forward(X, W, V)
+            dY = Yh - Y  # cost
+
+            # Something happen after
+            dW = np.dot(Z.T, dY) / N  # M x K
+            dZ = np.dot(dY, W.T)  # N x M
+
+            # calculate derivative
+            dV = np.dot(X.T, dZ * Z * (1 - Z)) / N  # D x M
+
+            # last part of back propogation
+            W = W - learning_rate * dW
+            V = V - learning_rate * dV
+            t += 1
+        return W, V
+
+
+
+
     def gradients(self,
                   X,  # N x D
                   Y,  # N x K
