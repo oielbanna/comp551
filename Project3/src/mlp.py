@@ -89,12 +89,21 @@ class MLP:
             t += 1
         return W, V
 
+    '''Just the first couple lines that were in the gradient function
+        All we need here is Z (output of out first layer dot weights corresponding to that layer)
+        and Yh (output) which is the Z dot W (weights of last layer)'''
     def forward(self, X, W, V):
         Z = self.logistic(np.dot(X, V))  # N x M
         Yh = softmax(np.dot(Z, W))  # N x K
 
         return Z, Yh
 
+    '''Everything is in a while loop as was in GD, difference here is that this now takes as input W and V (could calculate it here too idk got confused)
+    Then from the Z and Yh obtained from forward, we calculate everything else that was previously in gradients to obtain dW and dV
+    , then finally subtract those values from W and V respectively
+    
+    Questions: why feed forward at every iteration?? Its doing that with regular GD as well. When GD calls gradient() at every iteration gradient is running feedforward
+    WHYYYYYYYYYY AHHHHHHHHH, '''
     def backward(self, X, Y, W, V, M, learning_rate=.1, eps=1e-9, max_iters=100000):
         N, D = X.shape
         t = 0
