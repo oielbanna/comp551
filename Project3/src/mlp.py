@@ -21,6 +21,7 @@ def softmax(u): # N x C
     u_exp = np.exp(u - np.max(u, 1)[:, None])
     return u_exp / np.sum(u_exp, axis=-1)[:, None]
 
+
 def sigmoid(z):
     result = 1.0 / (1.0 + np.exp(-z))
     return result
