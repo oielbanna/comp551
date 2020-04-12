@@ -1,4 +1,5 @@
 import numpy as np
+import torch
 
 
 def relu(z):
@@ -26,6 +27,13 @@ def sigmoid(z):
     result = 1.0 / (1.0 + np.exp(-z))
     return result
 
+def sigmoid_derivative(z):
+    result = z * (1-z)
+    return result
+
+def relu_derivative(z):
+    result = 1 * (z>0)
+    return result
 
 class MLP:
 
