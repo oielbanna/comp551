@@ -68,6 +68,11 @@ class MLP:
             weights.append(theta_tmp)
         return np.asarray(weights)
 
+    def batch(self, X, Y, batch_size=0.3):
+        n = X.shape[0] * batch_size
+        randoms = np.random.randint(X.shape[0], size=int(n))
+        return X[randoms], Y[randoms]
+
     def GD(self, X, Y, M, learning_rate=.1, eps=1e-9, max_iters=100000):
         N, D = X.shape
         N, K = Y.shape

@@ -39,6 +39,10 @@ dataiter = iter(trainloader)
 images, labels = dataiter.next()
 
 # show images
-imshow(torchvision.utils.make_grid(images))
+# imshow(torchvision.utils.make_grid(images))
 # print labels
-print(' '.join('%5s' % classes[labels[j]] for j in range(4)))
+print(' '.join('%5s' % classes[labels[j]] for j in range(len(labels))))
+
+print("testing batching")
+ims, lbs = mlp.batch(images, labels)
+print(ims, lbs)
