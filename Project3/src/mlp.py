@@ -28,7 +28,7 @@ def sigmoid(z):
     return result
 
 def sigmoid_derivative(z):
-    result = z * (1-z)
+    result = sigmoid(z) * (1 - sigmoid(z))
     return result
 
 def relu_derivative(z):
@@ -103,11 +103,44 @@ class MLP:
             z[layer+1] = np.dot(input_layer, self.weights[layer].tranpose())
 
             if self.activation_func == 'sigmoid':
-                output_layer = sigmoid(z[layer+1])
+                #if last layer, apply softmax
+                if(layer + 1 == self.n_layers-1):
+                    output_layer = softmax(z[layer+1])
+                else:
+                    output_layer = sigmoid(z[layer+1])
             elif self.activation_func == 'relu':
-                output_layer = relu(z[layer+1])
+                # if last layer, apply softmax
+                if (layer + 1 == self.n_layers - 1):
+                    output_layer = softmax(z[layer + 1])
+                else:
+                    output_layer = relu(z[layer + 1])
 
             input_layer = output_layer
 
         a[self.n_layers-1] = output_layer
         return a, z
+
+    def backpropagation(self, x, y):
+        n_examples = x.shape[0]
+        a, z = self.feedforward(y)
+
+        #backpropagation, calculate weights based on the softmax function (last layer)
+        updates = self.n_layers * [None]
+        updates[-1] = a[-1] - y
+
+        #update weights from the second last layer to the second layer
+        for layer in np.arrange(self.n_layers-2, 0, -1):
+            if self.activation_func == 'sigmoid':
+                updates[layer] = (np.dot(self.weights[layer].T, updates[layer+1].T).T) * sigmoid_derivative(z[layer])
+            elif self.activation_func == 'relu':
+                updates[layer] = (np.dot(self.weights[layer].T, updates[layer+1].T).T) * relu_derivative(z[layer])
+
+        #compute gradient
+        gradients = (self.n_layer - 1) * [None]
+        for layer in range(self.n_layers - 1):
+            temp_grads = np.dot(updates[layer+1].T, a[layer]) / n_examples
+            temp_grads = temp_grads + (self.lambda_r / n_examples) * self.weights[layer][:, 1:]
+
+            gradients[layer] = temp_grads
+
+        return gradients
