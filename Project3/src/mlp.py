@@ -72,7 +72,7 @@ class MLP:
             gradients = self.backward(X, Y, learning_rate=lr, batch_size=batch_size)
 
             # Todo: need to update those weights after doing backpropagation but use a better function.
-            self.weights = np.subtract(self.weights, gradients)
+            self.weights = np.subtract(self.weights, lr*gradients)
 
     def predict(self, X):
         Z, A = self.feedforward(X)
@@ -116,8 +116,8 @@ class MLP:
                     A, Z = self.single_forward_propagation(inputs, self.weights[layer], softmax)
                 else:
                     A, Z = self.single_forward_propagation(inputs, self.weights[layer], sigmoid)
-            activations.append(Z)
-        return np.asarray(activations), A
+            activations.append(A)
+        return np.asarray(activations), Z
 
     def single_forward_propagation(self, inputs, weights, activation):
         Z = np.dot(weights, inputs)
@@ -134,8 +134,7 @@ class MLP:
         # batch the data radomly
         X_batch, Y_batch = self.batch(X, Y, batch_size=batch_size)
 
-        # cost should be computed in the backprop stage
-        Z, Yhat = self.feedforward(X_batch)
+        Yhat, Z = self.feedforward(X_batch)
         dZ = [] * Z.shape
         dW = [] * Z.shape
         dV = [] * Z.shape
@@ -149,16 +148,16 @@ class MLP:
             dY = self.SSD(Yhat, Y_batch)  # cost
 
             if self.activation_func == 'sigmoid':
-                dZ[layer] = sigmoid_derivative(dA, Z[layer]) # D x M
+                dZ[layer] = sigmoid_derivative(dA, Z[layer]) * dY # D x M
             elif self.activation_func == 'relu':
-                dZ[layer] = relu_derivative(dA, Z[layer]) # D x M
+                dZ[layer] = relu_derivative(dA, Z[layer]) * dY# D x M
 
             # Something happens after
             dW[layer] = np.dot(dZ[layer], Yhat[layer+1].T) / N  # M x K
-            dV[layer] = np.sum(dZ[layer], axis=1, keepdims=True) / N
+            #dV[layer] = np.sum(dZ[layer], axis=1, keepdims=True) / N
             dA = np.dot(self.weights[layer].T, dZ[layer])
 
-        return dW, dV
+        return dW
 
 
     def SSD(self, Yh, Y):
