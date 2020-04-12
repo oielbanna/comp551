@@ -12,13 +12,13 @@ def relu(z):
     return result
 
 
-def logsumexp(Z): # NxC
+def logsumexp(Z):  # NxC
     Zmax = np.max(Z, axis=1)[:, None]
     lse = Zmax + np.log(np.sum(np.exp(Z - Zmax), axis=1))[:, None]
     return lse  # N
 
 
-def softmax(u): # N x C
+def softmax(u):  # N x C
     u_exp = np.exp(u - np.max(u, 1)[:, None])
     return u_exp / np.sum(u_exp, axis=-1)[:, None]
 
@@ -27,13 +27,16 @@ def sigmoid(z):
     result = 1.0 / (1.0 + np.exp(-z))
     return result
 
+
 def sigmoid_derivative(z):
-    result = z * (1-z)
+    result = z * (1 - z)
     return result
 
+
 def relu_derivative(z):
-    result = 1 * (z>0)
+    result = 1 * (z > 0)
     return result
+
 
 class MLP:
 
@@ -44,11 +47,14 @@ class MLP:
 
         self.weights = self.initialize_weights()
 
-    def train(self, X, Y):
-        pass
+    def train(self, X, Y, epochs=200):
+        for epoch in range(epochs):
+            gradients = self.backpropogation(X, Y)
+            self.weights = np.subtract(self.weights, gradients)
 
     def predict(self, X):
-        pass
+        A, Z = self.feedforward(X)
+        return A[-1]
 
     def initialize_weights(self):
         weights = []
@@ -98,16 +104,19 @@ class MLP:
         z = self.n_layers * [None]
         output_layer = 0.0
 
-        for layer in range(self.n_layers-1):
+        for layer in range(self.n_layers - 1):
             a[layer] = input_layer
-            z[layer+1] = np.dot(input_layer, self.weights[layer].tranpose())
+            z[layer + 1] = np.dot(input_layer, self.weights[layer].tranpose())
 
             if self.activation_func == 'sigmoid':
-                output_layer = sigmoid(z[layer+1])
+                output_layer = sigmoid(z[layer + 1])
             elif self.activation_func == 'relu':
-                output_layer = relu(z[layer+1])
+                output_layer = relu(z[layer + 1])
 
             input_layer = output_layer
 
-        a[self.n_layers-1] = output_layer
+        a[self.n_layers - 1] = output_layer
         return a, z
+
+    def backpropogation(self, X, Y):
+        return 1
