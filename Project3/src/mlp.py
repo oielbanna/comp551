@@ -72,12 +72,18 @@ class MLP:
         N, D = X.shape
         N, K = Y.shape
 
+        # make it ndarray right away!
         W = np.random.randn(M, K) * .01
         V = np.random.randn(D, M) * .01
         dW = np.inf * np.ones_like(W)
         t = 0
         while np.linalg.norm(dW) > eps and t < max_iters:
+            # batch the data radomly first
+
+            # do forward here, break up gradients function
             dW, dV = self.gradients(X, Y, W, V)
+
+            # last part of back propogation
             W = W - learning_rate * dW
             V = V - learning_rate * dV
             t += 1
@@ -89,12 +95,19 @@ class MLP:
                   W,  # M x K
                   V,  # D x M
                   ):
+        # forwards
         Z = self.logistic(np.dot(X, V))  # N x M
         N, D = X.shape
         Yh = softmax(np.dot(Z, W))  # N x K
+
+        # cost function, lets use a better cost function!
         dY = Yh - Y  # N x K
+
+        # Something happen after
         dW = np.dot(Z.T, dY) / N  # M x K
         dZ = np.dot(dY, W.T)  # N x M
+
+        # calculate derivative
         dV = np.dot(X.T, dZ * Z * (1 - Z)) / N  # D x M
         return dW, dV
 
