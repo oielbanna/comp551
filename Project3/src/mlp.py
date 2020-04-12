@@ -84,6 +84,7 @@ class MLP:
         t = 0
         while np.linalg.norm(dW) > eps and t < max_iters:
             # batch the data radomly first
+            X_train, Y_train = self.batch(X, Y)
 
             # do forward here, break up gradients function
             dW, dV = self.gradients(X, Y, W, V)
@@ -97,11 +98,21 @@ class MLP:
     '''Just the first couple lines that were in the gradient function
         All we need here is Z (output of out first layer dot weights corresponding to that layer)
         and Yh (output) which is the Z dot W (weights of last layer)'''
-    def forward(self, X, W, V):
-        Z = self.logistic(np.dot(X, V))  # N x M
-        Yh = softmax(np.dot(Z, W))  # N x K
+    def feedforward(self, X):
+        activations = []
+        inputs = X
+        for layer in range(self.n_layers - 1):
+            if layer == self.n_layers -1:
+                A, Z = self.single_forward_propagation(inputs, self.weights[layer], softmax)
+            else:
+                A, Z = self.single_forward_propagation(inputs, self.weights[layer], relu)
+            activations.append(Z)
+        return np.asarray(activations), A
 
-        return Z, Yh
+    def single_forward_propagation(self, inputs, weights, activation):
+        Z = np.dot(weights, inputs)
+        return activation(Z), Z
+
 
     '''Everything is in a while loop as was in GD, difference here is that this now takes as input W and V (could calculate it here too idk got confused)
     Then from the Z and Yh obtained from forward, we calculate everything else that was previously in gradients to obtain dW and dV
@@ -114,13 +125,15 @@ class MLP:
         t = 0
         while np.linalg.norm(dW) > eps and t < max_iters:
             # batch the data radomly first
+            X_batch, Y_batch = self.batch(X, Y)
 
             # do forward here, break up gradients function
             # cost should be computed in the backprop stage
-            Z, Yh = self.forward(X, W, V)
-            dY = Yh - Y  # cost
+            Z, Yh = self.forward(X_batch, W, V)
 
-            # Something happen after
+            dY = self.ssd(Yh, Y)  # cost
+
+            # Something happens after
             dW = np.dot(Z.T, dY) / N  # M x K
             dZ = np.dot(dY, W.T)  # N x M
 
@@ -134,6 +147,8 @@ class MLP:
         return W, V
 
 
+    def ssd(self, Yh, Y):
+        return np.sum((Yh - Y) ** 2)
 
 
     def gradients(self,
@@ -158,33 +173,33 @@ class MLP:
         dV = np.dot(X.T, dZ * Z * (1 - Z)) / N  # D x M
         return dW, dV
 
-    def feedforward(self, x):
-        input_layer = x
-        a = self.n_layers * [None]
-        z = self.n_layers * [None]
-        output_layer = 0.0
-
-        for layer in range(self.n_layers - 1):
-            a[layer] = input_layer
-            z[layer + 1] = np.dot(input_layer, self.weights[layer].tranpose())
-
-            if self.activation_func == 'sigmoid':
-                # if last layer, apply softmax
-                if layer + 1 == self.n_layers - 1:
-                    output_layer = softmax(z[layer + 1])
-                else:
-                    output_layer = sigmoid(z[layer + 1])
-            elif self.activation_func == 'relu':
-                # if last layer, apply softmax
-                if layer + 1 == self.n_layers - 1:
-                    output_layer = softmax(z[layer + 1])
-                else:
-                    output_layer = relu(z[layer + 1])
-
-            input_layer = output_layer
-
-        a[self.n_layers - 1] = output_layer
-        return a, z
+    # def feedforward(self, x):
+    #     input_layer = x
+    #     a = self.n_layers * [None]
+    #     z = self.n_layers * [None]
+    #     output_layer = 0.0
+    #
+    #     for layer in range(self.n_layers - 1):
+    #         a[layer] = input_layer
+    #         z[layer + 1] = np.dot(input_layer, self.weights[layer].tranpose())
+    #
+    #         if self.activation_func == 'sigmoid':
+    #             # if last layer, apply softmax
+    #             if layer + 1 == self.n_layers - 1:
+    #                 output_layer = softmax(z[layer + 1])
+    #             else:
+    #                 output_layer = sigmoid(z[layer + 1])
+    #         elif self.activation_func == 'relu':
+    #             # if last layer, apply softmax
+    #             if layer + 1 == self.n_layers - 1:
+    #                 output_layer = softmax(z[layer + 1])
+    #             else:
+    #                 output_layer = relu(z[layer + 1])
+    #
+    #         input_layer = output_layer
+    #
+    #     a[self.n_layers - 1] = output_layer
+    #     return a, z
 
     def backpropagation(self, x, y):
         n_examples = x.shape[0]
