@@ -2,23 +2,27 @@ import numpy as np
 from tensorflow.keras import datasets
 
 
-def softmax(u):  # N x C
-    print(u.shape)
-    u_exp = np.exp(u - np.max(u, 1)[:, None])
-    return u_exp / np.sum(u_exp, axis=-1)[:, None]
+def softmax(u):
+    u_exp = np.exp(u - np.max(u))
+    return u_exp / np.sum(u_exp)
 
 
-def SSD(Yh, Y):
-    return np.sum((Yh - Y) ** 2)
+def SigmoidCrossEntropyLoss(a, y):
+    """
+    Description: Calculate Sigmoid cross entropy loss
+    Params: a = activation
+            y = target one hot vector
+    Outputs: a loss value
+    """
+    return np.sum(np.nan_to_num(-y * np.log(a) - (1 - y) * np.log(1 - a)))
 
 
 def sigmoid(z):
-    return 1 / (1 + np.exp(-z))
+    return 1.0 / (1.0 + np.exp(-z))
 
 
-def deriv_sigmoid(s):
-    # derivative of sigmoid
-    return s * (1 - s)
+def delta_sigmoid(z):
+    return sigmoid(z) * (1 - sigmoid(z))
 
 
 def batch(X, Y, batch_size=100):
@@ -32,34 +36,42 @@ class NN2(object):
         self.outputSize = 10
         self.hiddenSize = hidden_size
 
+        np.random.seed(5)
         # weights
         self.W = np.random.randn(self.inputSize, self.hiddenSize)  # input to hidden
         self.V = np.random.randn(self.hiddenSize, self.outputSize)  # hidden to output
         print(self.W.shape, self.V.shape)
 
+    def eval(self, Yhat, Ytrue):
+        count = np.sum(Yhat == Ytrue)
+        print("Accuracy: %f" % ((float(count) / Yhat.shape[0]) * 100))
+
     def feedforward(self, X):
         # inputs to layer 1
-        out = np.dot(X.flatten(), self.W)  # 3027x1 * 3027x50
+        out = np.dot(X.flatten(), self.W)  # 3027x1 * 3027x50 => 50x1
         activation = sigmoid(out)
 
         # layer 1 to output
-        out2 = np.dot(activation, self.V)  # TODO ??? * 50x10
-        Yhat = sigmoid(out2)
+        out2 = np.dot(activation, self.V)  # 50x1 * 50x10 => 10x1
+        activation2 = softmax(out2)
 
-        return Yhat, [out, out2], [activation, Yhat]
+        Yhat = np.argmax(activation2)
+        return Yhat, [out, out2], [activation, activation2]
 
-    def backpropagation(self, Yhat, cost, activations):
-        delta_cost = cost * deriv_sigmoid(Yhat)  # delta cost for second to last layer
+    def backpropagation(self, cost, outs):
+        # TODO multply by deriv of cost (cross entropy), not cost on its own
+        # TODO delta_sigmoid here should be the delta for sofrtmax, not sigmoid so we have to change that too
+        delta_z1_cost = cost * delta_sigmoid(outs[1])  # delta cost for second to last layer
 
-        z2_error = np.dot(delta_cost, self.V.T)
+        z2_error = np.dot(delta_z1_cost, self.V.T)
 
-        delta_z2_error = z2_error * deriv_sigmoid(activations[0])  # delta cost for first layer
+        delta_z2_error = z2_error * delta_sigmoid(outs[0])  # delta cost for first layer
 
-        return delta_z2_error, delta_cost
+        return delta_z2_error, delta_z1_cost
 
-    def train(self, X, Y, epochs=1000, lr=0.1, batch_size=100):
+    def train(self, X, Y, epochs=10, lr=0.1, batch_size=10000):
         n_batches = int(X.shape[0] / batch_size)
-
+        cost_aggregate = []
         for epoch in range(epochs):
             for b in range(n_batches):
                 X_batch, Y_batch = batch(X, Y, batch_size)
@@ -67,15 +79,17 @@ class NN2(object):
                     x = x.flatten()
                     Yhat, outs, activations = self.feedforward(x)
 
-                    # cost = SSD(y_t, Yhat)  # sum of square difference loss
-                    cost = y_t - Yhat
+                    # TODO: use cross entropy cost instead
+                    cost = y_t[0] - Yhat  # => cost is a scalar
+                    cost_aggregate.append(cost)
 
-                    delta_z2_error, delta_cost = self.backpropagation(Yhat, cost, activations)
+                    delta_z2_error, delta_cost = self.backpropagation(cost, outs)
 
-                    print(delta_z2_error.shape)
-                    # update the weights
-                    self.W += np.dot(x, delta_z2_error.T) * lr  # adjusting first set (input --> hidden) weights
-                    self.V += activations[0].T.dot(delta_cost) * lr  # adjusting second set (hidden --> output) weights
+                    self.W += np.dot(x.reshape(-1, 1), delta_z2_error.reshape(-1, 1).T) * lr  # input to hidden weights
+                    self.V += np.dot(activations[0].reshape(-1, 1),
+                                     delta_cost.reshape(-1, 1).T) * lr  # hidden tp output weights
+
+            print("Epoch {} with loss {}".format(epoch, np.average(cost_aggregate)))
 
     def predict(self, X):
         Yhat, _, _ = self.feedforward(X)
@@ -88,6 +102,11 @@ Y = train_labels
 
 NN = NN2()
 NN.train(X, Y)
-o = NN.feedforward(test_images)
-print("Predicted Output: \n" + str(o))
-print("Actual Output: \n" + str(test_labels))
+Yhat = np.array([])
+for img, label in zip(test_images[1:10], test_labels[1:10]): # testing on 10 images
+    o = NN.predict(img)
+    Yhat = np.append(Yhat, o)
+    # print("Predicted Output: " + str(o))
+    # print("Actual Output: " + str(label))
+
+NN.eval(Yhat, test_labels[1:10])
