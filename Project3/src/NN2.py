@@ -7,23 +7,27 @@ def softmax(u):
     return u_exp / np.sum(u_exp)
 
 
-def SigmoidCrossEntropyLoss(a, y):
+def OHV(vector, size=10):
     """
-    Description: Calculate Sigmoid cross entropy loss
-    Params: a = activation
-            y = target one hot vector
-    Outputs: a loss value
+    Create one hot vector with size = n
+    :param size:  size of output vector
+    :param vector: assuming vector length = 1
+    :return:
     """
-    return np.sum(np.nan_to_num(-y * np.log(a) - (1 - y) * np.log(1 - a)))
+    a = np.zeros(size)
+    a[vector] = 1
+    return a
 
-def d_SigmoidCrossEntropyLoss(a, y):
-    return np.sum(-y/a, ((1-y)/ 1-a)) / y.shape[0]
+
+def CrossEntropyLoss(yHat, y):
+    return - np.sum(y * np.log(yHat + 1e-15))
+
 
 def SoftmaxCrossEntropyLoss(a, y):
     p = softmax(a)
     loss = np.sum(-np.log(p[range(y.shape[0]), y])) / y.shape[0]
-
     return loss
+
 
 def d_SoftmaxCrossEntropyLoss(a, y):
     grad = softmax(a)
@@ -71,8 +75,7 @@ class NN2(object):
         out2 = np.dot(activation, self.V)  # 50x1 * 50x10 => 10x1
         activation2 = softmax(out2)
 
-        Yhat = np.argmax(activation2)
-        return Yhat, [out, out2], [activation, activation2]
+        return activation2, [out, out2], [activation, activation2]
 
     def backpropagation(self, cost, outs):
         # TODO multply by deriv of cost (cross entropy), not cost on its own
@@ -96,7 +99,12 @@ class NN2(object):
                     Yhat, outs, activations = self.feedforward(x)
 
                     # TODO: use cross entropy cost instead
-                    cost = y_t[0] - Yhat  # => cost is a scalar
+                    # print(Yhat, y_t)
+                    # TODO make one hot vector from y_t and take the negative log of the activations[1] and do dot product between them.
+                    # - np.sum(y_t * log(predicted))
+                    cost = CrossEntropyLoss(Yhat, OHV(y_t))
+                    print(cost)
+                    # cost = y_t[0] - Yhat  # => cost is a scalar
                     cost_aggregate.append(cost)
 
                     delta_z2_error, delta_cost = self.backpropagation(cost, outs)
@@ -119,7 +127,7 @@ Y = train_labels
 NN = NN2()
 NN.train(X, Y)
 Yhat = np.array([])
-for img, label in zip(test_images[1:10], test_labels[1:10]): # testing on 10 images
+for img, label in zip(test_images[1:10], test_labels[1:10]):  # testing on 10 images
     o = NN.predict(img)
     Yhat = np.append(Yhat, o)
     # print("Predicted Output: " + str(o))
