@@ -16,6 +16,22 @@ def SigmoidCrossEntropyLoss(a, y):
     """
     return np.sum(np.nan_to_num(-y * np.log(a) - (1 - y) * np.log(1 - a)))
 
+def d_SigmoidCrossEntropyLoss(a, y):
+    return np.sum(-y/a, ((1-y)/ 1-a)) / y.shape[0]
+
+def SoftmaxCrossEntropyLoss(a, y):
+    p = softmax(a)
+    loss = np.sum(-np.log(p[range(y.shape[0]), y])) / y.shape[0]
+
+    return loss
+
+def d_SoftmaxCrossEntropyLoss(a, y):
+    grad = softmax(a)
+    grad[range(y.shape[0]), y] -= 1
+    grad = grad / y.shape[0]
+
+    return grad
+
 
 def sigmoid(z):
     return 1.0 / (1.0 + np.exp(-z))
