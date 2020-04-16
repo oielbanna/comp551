@@ -93,7 +93,7 @@ class NN2(object):
         # inputs to layer 1
         # print(self.W)
         out = np.dot(X.flatten(), self.W)  # 3027x1 * 3027xhiddensize => hiddensizex1
-        activation = relu(out)
+        activation = sigmoid(out)
 
         # layer 1 to output
         out2 = np.dot(activation, self.V)  # hiddensizex1 * hiddensizex10 => 10x1
@@ -104,15 +104,15 @@ class NN2(object):
     def backpropagation(self, yhat, ohv_yt, outs):
         # TODO delta_sigmoid should actually be using d_softmax because thats the activation we use in our last layer!!!
         # TODO but somehow this is giving better results????
-        delta_z1_cost = d_crossEntropyLoss(yhat, ohv_yt) * d_relu(outs[1])  # delta cost for second to last layer
+        delta_z1_cost = d_crossEntropyLoss(yhat, ohv_yt) * delta_sigmoid(outs[1])  # delta cost for second to last layer
 
         z2_error = np.dot(delta_z1_cost, self.V.T)
 
-        delta_z2_error = z2_error * d_relu(outs[0])  # delta cost for first layer
+        delta_z2_error = z2_error * delta_sigmoid(outs[0])  # delta cost for first layer
 
         return delta_z2_error, delta_z1_cost
 
-    def train(self, X, Y, epochs=10, lr=1e-4, batch_size=10000):
+    def train(self, X, Y, epochs=5, lr=1e-4, batch_size=10000):
         cost_aggregate = []
         for epoch in range(epochs):
             X_batch, Y_batch = batch(X, Y, batch_size)
