@@ -60,7 +60,7 @@ def batch(X, Y, batch_size=100):
 
 
 class NN2(object):
-    def __init__(self, hidden_size=50):
+    def __init__(self, hidden_size=100):
         self.inputSize = 3072
         self.outputSize = 10
         self.hiddenSize = hidden_size
@@ -79,18 +79,19 @@ class NN2(object):
     def feedforward(self, X):
         # inputs to layer 1
         # print(self.W)
-        out = np.dot(X.flatten(), self.W)  # 3027x1 * 3027x50 => 50x1
+        out = np.dot(X.flatten(), self.W)  # 3027x1 * 3027xhiddensize => hiddensizex1
         activation = sigmoid(out)
 
         # layer 1 to output
-        out2 = np.dot(activation, self.V)  # 50x1 * 50x10 => 10x1
-        out2 -= np.max(out2, axis=0)  # Max trick for the softmax, preventing infinite values
+        out2 = np.dot(activation, self.V)  # hiddensizex1 * hiddensizex10 => 10x1
         activation2 = softmax(out2)
 
         return activation2, [out, out2], [activation, activation2]
 
     def backpropagation(self, yhat, ohv_yt, outs):
-        delta_z1_cost = d_crossEntropyLoss(yhat, ohv_yt) * d_softmax(outs[1])  # delta cost for second to last layer
+        # TODO delta_sigmoid should actually be using d_softmax because thats the activation we use in our last layer!!!
+        # TODO but somehow this is giving better results????
+        delta_z1_cost = d_crossEntropyLoss(yhat, ohv_yt) * delta_sigmoid(outs[1])  # delta cost for second to last layer
 
         z2_error = np.dot(delta_z1_cost, self.V.T)
 
