@@ -8,6 +8,9 @@ def softmax(u):
 
 
 def d_softmax(z):
+    """
+    z is a 10x1 vector and should return 10x1 as well.
+    """
     return - softmax(z) * softmax(z)
 
 
@@ -24,18 +27,21 @@ def OHV(vector, size=10):
 
 
 def CrossEntropyLoss(yHat, y):
-    L = -1 / len(y) * np.sum(np.log(yHat + 1e-15))
+    L = -1 / y.shape[0] * np.sum(y * np.log(yHat + 1e-15))
     return L
     # return - np.sum(y * np.log(yHat + 1e-15))
 
 
 def d_crossEntropyLoss(yhat, y):
+    """
+    yhat and y should be 10x1 arrays where each sums up to 1 (ie prob distribution of classes)
+    """
     # print(np.sum(yhat), np.sum(y))
     d = - np.sum(np.divide(y + 1e-15, yhat + 1e-15) + np.log(yhat + 1e-15))
     # d = np.sum(- np.divide(y, yhat), np.divide((1-y), 1-yhat)) / y.shape[0]
     # print("dasiof", d)
     if d != d:
-        print("Shit something bad happened")
+        print("Shit something bad happened we got a nan somewhere from our cross entropy deriv")
         exit(5)
     return d
 
@@ -59,14 +65,14 @@ class NN2(object):
         self.outputSize = 10
         self.hiddenSize = hidden_size
 
-        np.random.seed(5)
+        np.random.seed(50)
         # weights
         self.W = np.random.randn(self.inputSize, self.hiddenSize)  # input to hidden
         self.V = np.random.randn(self.hiddenSize, self.outputSize)  # hidden to output
         print(self.W.shape, self.V.shape)
 
     def eval(self, Yhat, Ytrue):
-        print(Yhat, Ytrue)
+        Yhat, Ytrue = Yhat.flatten(), Ytrue.flatten()
         count = np.sum(Yhat == Ytrue)
         print("Accuracy: %f" % ((float(count) / Yhat.shape[0]) * 100))
 
@@ -84,8 +90,6 @@ class NN2(object):
         return activation2, [out, out2], [activation, activation2]
 
     def backpropagation(self, yhat, ohv_yt, outs):
-        # TODO multply by deriv of cost (cross entropy), not cost on its own
-        # TODO delta_sigmoid here should be the delta for sofrtmax, not sigmoid so we have to change that too
         delta_z1_cost = d_crossEntropyLoss(yhat, ohv_yt) * d_softmax(outs[1])  # delta cost for second to last layer
 
         z2_error = np.dot(delta_z1_cost, self.V.T)
@@ -94,7 +98,7 @@ class NN2(object):
 
         return delta_z2_error, delta_z1_cost
 
-    def train(self, X, Y, epochs=5, lr=1e-5, batch_size=10000):
+    def train(self, X, Y, epochs=10, lr=1e-4, batch_size=10000):
         cost_aggregate = []
         for epoch in range(epochs):
             X_batch, Y_batch = batch(X, Y, batch_size)
@@ -102,26 +106,24 @@ class NN2(object):
             for x, y_t in zip(X_batch, Y_batch):
                 x = x.flatten()
                 Yhat, outs, activations = self.feedforward(x)
-                # print("Is this Yhat? ", Yhat)
-                # TODO make one hot vector from y_t and take the negative log of the activations[1] and do dot product between them.
-                # - np.sum(y_t * log(predicted))
+
                 ohv_yt = OHV(y_t)
                 cost = CrossEntropyLoss(Yhat, ohv_yt)
                 # print("COST ",cost)
-                # cost = y_t[0] - Yhat  # => cost is a scalar
+                # cost = y_t[0] - np.argmax(Yhat) # => cost is a scalar
                 cost_aggregate.append(cost)
 
                 delta_z2_error, delta_cost = self.backpropagation(Yhat, ohv_yt, outs)
 
                 self.W += np.dot(x.reshape(-1, 1), delta_z2_error.reshape(-1, 1).T) * lr  # input to hidden weights
                 self.V += np.dot(activations[0].reshape(-1, 1),
-                                 delta_cost.reshape(-1, 1).T) * lr  # hidden tp output weights
+                                 delta_cost.reshape(-1, 1).T) * lr  # hidden to output weights
 
             print("Epoch {} with loss {}".format(epoch, np.average(cost_aggregate)))
 
     def predict(self, X):
         Yhat, _, _ = self.feedforward(X)
-        return Yhat
+        return np.argmax(Yhat)
 
 
 (train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
@@ -130,11 +132,12 @@ Y = train_labels
 
 NN = NN2()
 NN.train(X, Y)
+
 Yhat = np.array([])
-for img, label in zip(test_images[1:10], test_labels[1:10]):  # testing on 10 images
+for img, label in zip(test_images[1:50], test_labels[1:50]):  # testing on 10 images
     o = NN.predict(img)
     Yhat = np.append(Yhat, o)
     # print("Predicted Output: " + str(o))
     # print("Actual Output: " + str(label))
 
-NN.eval(Yhat, test_labels[1:10])
+NN.eval(Yhat, test_labels[1:50])
