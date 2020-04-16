@@ -29,20 +29,16 @@ def OHV(vector, size=10):
 def CrossEntropyLoss(yHat, y):
     L = -1 / y.shape[0] * np.sum(y * np.log(yHat + 1e-15))
     return L
-    # return - np.sum(y * np.log(yHat + 1e-15))
 
 
 def d_crossEntropyLoss(yhat, y):
     """
     yhat and y should be 10x1 arrays where each sums up to 1 (ie prob distribution of classes)
     """
+    # print(yhat, y)
     # print(np.sum(yhat), np.sum(y))
-    d = - np.sum(np.divide(y + 1e-15, yhat + 1e-15) + np.log(yhat + 1e-15))
-    # d = np.sum(- np.divide(y, yhat), np.divide((1-y), 1-yhat)) / y.shape[0]
-    # print("dasiof", d)
-    if d != d:
-        print("Shit something bad happened we got a nan somewhere from our cross entropy deriv")
-        exit(5)
+    # print(np.nan_to_num(np.divide(y, yhat)))
+    d = - np.sum(np.nan_to_num(np.divide(y, yhat)) + np.log(yhat + 1e-15))
     return d
 
 
@@ -101,22 +97,24 @@ class NN2(object):
 
         return activation2, [out, out2], [activation, activation2]
 
-    def backpropagation(self, yhat, ohv_yt, outs):
+    def backpropagation(self, c, yhat, ohv_yt, outs):
         # TODO delta_sigmoid should actually be using d_softmax because thats the activation we use in our last layer!!!
         # TODO but somehow this is giving better results????
-        delta_z1_cost = d_crossEntropyLoss(yhat, ohv_yt) * delta_sigmoid(outs[1])  # delta cost for second to last layer
-
+        cc = d_crossEntropyLoss(yhat, ohv_yt)
+        # print(cc)
+        delta_z1_cost = cc * delta_sigmoid(outs[1])  # delta cost for second to last layer
+        # print(delta_z1_cost)
         z2_error = np.dot(delta_z1_cost, self.V.T)
 
         delta_z2_error = z2_error * delta_sigmoid(outs[0])  # delta cost for first layer
 
         return delta_z2_error, delta_z1_cost
 
-    def train(self, X, Y, epochs=5, lr=1e-4, batch_size=10000):
+    def train(self, X, Y, epochs=10, lr=1e-1, batch_size=10000):
         cost_aggregate = []
         for epoch in range(epochs):
             X_batch, Y_batch = batch(X, Y, batch_size)
-            
+
             for x, y_t in zip(X_batch, Y_batch):
                 x = x.flatten()
                 Yhat, outs, activations = self.feedforward(x)
@@ -124,10 +122,10 @@ class NN2(object):
                 ohv_yt = OHV(y_t)
                 cost = CrossEntropyLoss(Yhat, ohv_yt)
                 # print("COST ",cost)
-                # cost = y_t[0] - np.argmax(Yhat) # => cost is a scalar
+                # cost = y_t - Yhat  # => cost is a scalar
                 cost_aggregate.append(cost)
 
-                delta_z2_error, delta_cost = self.backpropagation(Yhat, ohv_yt, outs)
+                delta_z2_error, delta_cost = self.backpropagation(cost, Yhat, ohv_yt, outs)
 
                 self.W += np.dot(x.reshape(-1, 1), delta_z2_error.reshape(-1, 1).T) * lr  # input to hidden weights
                 self.V += np.dot(activations[0].reshape(-1, 1),
@@ -140,18 +138,23 @@ class NN2(object):
         return np.argmax(Yhat)
 
 
+from scipy.stats import zscore
+
 (train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
-X = train_images / 255.0
+train_images = zscore(train_images, axis=None)
+test_images = zscore(test_images, axis=None)
+
+X = train_images
 Y = train_labels
 
 NN = NN2()
 NN.train(X, Y)
 
 Yhat = np.array([])
-for img, label in zip(test_images[1:50], test_labels[1:50]):  # testing on 10 images
+for img, label in zip(train_images[1:50], train_labels[1:50]):  # testing on 50 images
     o = NN.predict(img)
     Yhat = np.append(Yhat, o)
     # print("Predicted Output: " + str(o))
     # print("Actual Output: " + str(label))
 
-NN.eval(Yhat, test_labels[1:50])
+NN.eval(Yhat, train_labels[1:50])

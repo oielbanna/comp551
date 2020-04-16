@@ -1,14 +1,13 @@
+from scipy.stats import zscore
 import numpy as np
 from tensorflow.keras import datasets
 
+(train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
+train_images = zscore(train_images, axis=None)
+test_images = zscore(test_images, axis=None)
 
-def softmax(u):
-    u_exp = np.exp(u - np.max(u))
-    return u_exp / np.sum(u_exp)
-
-
-def d_softmax(z):
-    return - softmax(z) * softmax(z)
+X = train_images
+Y = train_labels
 
 
 def OHV(vector, size=10):
@@ -23,119 +22,106 @@ def OHV(vector, size=10):
     return a
 
 
-def CrossEntropyLoss(yHat, y):
-    L = -1 / len(y) * np.sum(np.log(yHat + 1e-15))
-    return L
-    # return - np.sum(y * np.log(yHat + 1e-15))
-
-
-def d_crossEntropyLoss(yhat, y):
-    # print(np.sum(yhat), np.sum(y))
-    d = - np.sum(np.divide(y + 1e-15, yhat + 1e-15) + np.log(yhat + 1e-15))
-    # d = np.sum(- np.divide(y, yhat), np.divide((1-y), 1-yhat)) / y.shape[0]
-    # print("dasiof", d)
-    if d != d:
-        print("Shit something bad happened")
-        exit(5)
-    return d
-
-
-def sigmoid(z):
-    return 1.0 / (1.0 + np.exp(-z + 1e-10))
-
-
-def delta_sigmoid(z):
-    return sigmoid(z) * (1 - sigmoid(z))
-
-
 def batch(X, Y, batch_size=100):
     randoms = np.random.randint(X.shape[0], size=int(batch_size))
     return X[randoms], Y[randoms]
 
 
 class NN2(object):
-    def __init__(self, hidden_size=50):
-        self.inputSize = 3072
-        self.outputSize = 10
-        self.hiddenSize = hidden_size
-
-        np.random.seed(5)
-        # weights
-        self.W = np.random.randn(self.outputSize, self.inputSize) * 0.001 # input to hidden
-        # self.V = np.random.randn(self.hiddenSize, self.outputSize)  # hidden to output
-        # print(self.W.shape, self.V.shape)
 
     def eval(self, Yhat, Ytrue):
-        print(Yhat, Ytrue)
+        Yhat, Ytrue = Yhat.flatten(), Ytrue.flatten()
         count = np.sum(Yhat == Ytrue)
         print("Accuracy: %f" % ((float(count) / Yhat.shape[0]) * 100))
 
-    def train(self, X, Y, epochs=5, lr=1e-5, batch_size=100):
-        cost_aggregate = []
-        for epoch in range(epochs):
-            x, y_t = batch(X, Y, batch_size)
-            x = np.asarray([e.flatten() for e in x])
-            # x = x.flatten()
+    def sigmoid(self, z):
+        return 1.0 / (1.0 + np.exp(-z + 1e-10))
 
-            # Calculate loss and gradient for the iteration
-            loss, grad = self.cross_entropy_loss(x, y_t, 1e-3)
-            cost_aggregate.append(loss)
+    def cost(self,
+             X,  # N x D
+             Y,  # N x C
+             W,  # M x C
+             V,  # D x M
+             ):
+        Q = np.dot(X, V)  # N x M
+        Z = self.sigmoid(Q)  # N x M
+        U = np.dot(Z, W)  # N x K
+        print(X.shape, U)
+        Yh = self.softmax(U)
+        nll = - np.mean(np.sum(U * Y, 1) - self.logsumexp(U))
+        return nll, Yh
 
-            # delta_z2_error, delta_cost = self.backpropagation(Yhat, ohv_yt, outs)
+    def gradients(self,
+                  X,  # N x D
+                  Y,  # N x K
+                  W,  # M x K
+                  V,  # D x M
+                  ):
+        # feedforward
+        Z = self.sigmoid(np.dot(X, V))  # N x M
+        N, D = X.shape
+        output = np.dot(Z, W)
+        Yh = self.softmax(output)  # N x K
 
-            self.W -= lr * grad
+        # cost
+        dY = Yh - Y  # N x K
 
-            print("Epoch {} with loss {}".format(epoch, np.average(cost_aggregate)))
+        # backpropagation
+        dW = np.dot(Z.T, dY) / N  # M x K
+        dZ = np.dot(dY, W.T)  # N x M
+        dV = np.dot(X.T, dZ * Z * (1 - Z)) / N  # D x M
+        return dW, dV
 
-    def predict(self, x):
-        """
-        Predict labels using the trained model.
-        Arguments:
-            x: D * N numpy array as the test data, where D is the dimension and N the test sample size
-        Output:
-            y_pred: 1D numpy array with length N as the predicted labels for the test data
-        """
-        y = self.W.dot(x)
-        y_pred = np.argmax(y, axis=0)
-        return y_pred
+    def logsumexp(
+            self,
+            Z,  # NxC
+    ):
+        Zmax = np.max(Z, axis=1)[:, None]
+        lse = Zmax + np.log(np.sum(np.exp(Z - Zmax), axis=1))[:, None]
+        return lse  # N
 
-    def cross_entropy_loss(self, x, y, reg):
-        """
-        Calculate the cross-entropy loss and the gradient for each iteration of training.
-        Arguments:
-            x: D * N numpy array as the training data, where D is the dimension and N the training sample size
-            y: 1D numpy array with length N as the labels for the training data
-        Output:
-            loss: a float number of calculated cross-entropy loss
-            dW: C * D numpy array as the calculated gradient for W, where C is the number of classes, and 10 for this model
-        """
+    # def softmax(
+    #         self,
+    #         u,  # N x C
+    # ):
+    #     u_exp = np.exp(u - np.max(u)[:, None])
+    #     return u_exp / np.sum(u_exp, axis=-1)[:, None]
 
-        # Calculation of loss
-        z = np.matmul([self.W] * x.shape[0], x.T)
-        z -= np.max(z, axis=0)  # Max trick for the softmax, preventing infinite values
-        p = np.exp(z) / np.sum(np.exp(z), axis=0)  # Softmax function
-        print(np.sum(p), y.shape)
-        L = -1 / len(y) * np.sum(np.log(p[y, range(len(y) - 1)]))  # Cross-entropy loss
-        R = 0.5 * np.sum(np.multiply(self.W, self.W))  # Regularization term
-        loss = L + R * reg  # Total loss
+    def softmax(self, u):
+        u_exp = np.exp(u - np.max(u))
+        return u_exp / np.sum(u_exp)
 
-        # Calculation of dW
-        p[y, range(len(y))] -= 1
-        dW = 1 / len(y) * p.dot(x.T) + reg * self.W
-        return loss, dW
+    def GD(self, X, Y, M, lr=.1, eps=1e-9, max_iters=10000):
+        print(X.shape)
+        N, D = X.shape
+        N, K = Y.shape
+        W = np.random.randn(M, K) * .01
+        V = np.random.randn(D, M) * .01
+        dW = np.inf * np.ones_like(W)
+        t = 0
+        while np.linalg.norm(dW) > eps and t < max_iters:
+            x_batch, y_batch = batch(X, Y)
+            # for x, y in zip(x_batch, y_batch):
+            dW, dV = self.gradients(x_batch, y_batch, W, V)
+            W = W - lr * dW
+            V = V - lr * dV
+            t += 1
+        return W, V
 
-
-(train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
-X = train_images / 255.0
-Y = train_labels
 
 NN = NN2()
-NN.train(X[0:1000], Y[0:1000])
-Yhat = np.array([])
-for img, label in zip(test_images[1:10], test_labels[1:10]):  # testing on 10 images
-    o = NN.predict(img)
-    Yhat = np.append(Yhat, o)
-    # print("Predicted Output: " + str(o))
-    # print("Actual Output: " + str(label))
+X = np.asarray([x.flatten() for x in X[0:1000]])
+Y = np.asarray([OHV(y) for y in Y[0:1000]])
+W, V = NN.GD(X, Y, 50)
 
-NN.eval(Yhat, test_labels[1:10])
+# print(W, V)
+# print(X[100:300].shape)
+_, Yhat = NN.cost(X[300:400], Y[300: 400], W, V)
+# print(Yhat.shape)
+# for img, label in zip(train_images[1:50], train_labels[1:50]):  # testing on 50 images
+#     o = NN.predict(img)
+#     Yhat = np.append(Yhat, o)
+#     # print("Predicted Output: " + str(o))
+#     # print("Actual Output: " + str(label))
+#
+NN.eval(Yhat, Y[300:400])
