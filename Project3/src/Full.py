@@ -110,18 +110,18 @@ class NN2(object):
 
 
 NN = NN2()
-X = np.asarray([x.flatten() for x in X[0:1000]])
-Y = np.asarray([OHV(y) for y in Y[0:1000]])
-W, V = NN.GD(X, Y, 50)
+X = np.asarray([x.flatten() for x in X])
+Y = np.asarray([OHV(y) for y in Y])
+W, V = NN.GD(X, Y, 100)
 
 # print(W, V)
 # print(X[100:300].shape)
-_, Yhat = NN.cost(X[300:400], Y[300: 400], W, V)
+_, Yhat = NN.cost(X[300:500], Y[300: 500], W, V)
 # print(Yhat.shape)
 # for img, label in zip(train_images[1:50], train_labels[1:50]):  # testing on 50 images
 #     o = NN.predict(img)
 #     Yhat = np.append(Yhat, o)
 #     # print("Predicted Output: " + str(o))
 #     # print("Actual Output: " + str(label))
-#
-NN.eval(Yhat, Y[300:400])
+
+NN.eval(Yhat, Y[300:500])
