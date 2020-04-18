@@ -113,7 +113,10 @@ NN = NN2()
 X, Y = preprocess(train_images, train_labels)
 print("Training...")
 
-W, V = NN.GD(X, Y, 50)
+# W, V = NN.GD(X, Y, 50)
+
+W = np.random.randn(50, 10) * .01
+V = np.random.randn(3072, 50) * .01
 
 X_test, Y_test = preprocess(test_images, test_labels)
 # print(X_test.shape)
