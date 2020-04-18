@@ -127,11 +127,11 @@ class NN1:
 X_train, y_train = preprocess(X_train, y_train)
 X_test, y_test = preprocess(X_test, y_test)
 
-NN = NN1(relu, d_relu)
+NN = NN1(sigmoid, d_sigmoid)
 hiddens = [6, 20, 50]
 m_iters = [500, 1000, 1500]
 # for m in m_iters:
-W, V = NN.train(X_train, y_train, 20, batch_size=1000, lr=0.01, max_iters=1200, verbose=True)
+W, V = NN.train(X_train, y_train, 50, batch_size=1000, lr=0.01, max_iters=1500, verbose=True)
 yh = NN.predict(X_test, W, V)
 acc = accuracy_score(np.argmax(y_test, axis=1), yh)
 print(acc)
