@@ -2,6 +2,7 @@ from scipy.stats import zscore
 import numpy as np
 from tensorflow.keras import datasets
 import time
+from sklearn import metrics
 
 
 def OHV(vector, size=10):
@@ -152,14 +153,8 @@ h_sizes = [8, 50, 150]
 # start = time.time()
 for b in h_sizes:
     W, V = NN.train(X, Y, b, epochs=5, batch_size=64, verbose=True)
-    # end = time.time()
-    # print(end - start)
-
-    print("Predicting train set...")
-    Yhat = NN.predict(X, W, V)
-    eval(Yhat, Y)
 
     print("Predicting test set...")
     X_test, Y_test = preprocess(test_images, test_labels)
     Yhat = NN.predict(X_test, W, V)
-    eval(Yhat, Y_test)
+    print(round(metrics.accuracy_score(Y_test, Yhat), 3))

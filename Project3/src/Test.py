@@ -1,6 +1,6 @@
 import numpy as np
 from tensorflow.keras import datasets
-
+from sklearn import metrics
 
 def sigmoid(z):
     return 1.0 / (1.0 + np.exp(-z + 1e-10))
@@ -86,7 +86,6 @@ class NN2:
 
     def GD(self, X, Y, M, lr=.1, eps=1e-9, max_iters=10000):
         X, Y = batch(X, Y, 64)
-        print(X.shape)
         N, D = X.shape
         N, K = Y.shape
         W = np.random.randn(M, K) * .01
@@ -117,7 +116,8 @@ print("Training...")
 W, V = NN.GD(X, Y, 50)
 
 X_test, Y_test = preprocess(test_images, test_labels)
-print(X_test.shape)
+# print(X_test.shape)
 _, Yhat = NN.feedforward(X_test, W, V)
 print(Yhat[-1].shape, Y_test.shape)
-eval(Yhat[-1], Y_test)
+eval(np.round(Yhat[-1]), Y_test)
+print(round(metrics.accuracy_score(Y_test.flatten(), np.round(Yhat[-1].flatten())), 9))
