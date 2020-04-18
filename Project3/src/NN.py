@@ -30,7 +30,7 @@ def softmax(
 
 def OHV(vector, size=10):
     """
-    Create one hot vector with size = n
+    Create one hot vector with length = size
     :param size:  size of output vector
     :param vector: assuming vector length = 1
     :return:
@@ -67,19 +67,21 @@ class NN1:
                   W,  # M x C
                   V  # D x M
                   ):
+        """
+        function adapted from the course slides
+        """
         Q = np.dot(X, V)
         Z = self.activation(Q)  # N x M
-
-        N, D = X.shape
         Yh = self.activation(np.dot(Z, W))  # N x C # N x C
 
         dY = Yh - Y  # N x C
+        N, D = X.shape
         dW = np.dot(Z.T, dY) / N  # M x C
         dZ = np.dot(dY, W.T)  # N x M
         dV = np.dot(X.T, dZ * self.d_actication(Q)) / N  # D x M
         return dW, dV
 
-    def GD(self, X, Y, M, batch_size, lr=.1, eps=1e-9, max_iters=10000, verbose=True):
+    def train(self, X, Y, M, batch_size, lr=.1, eps=1e-9, max_iters=10000, verbose=True):
         # init weights
         N, D = X.shape
         N, C = Y.shape
@@ -96,12 +98,15 @@ class NN1:
 
             # feedforward, backpropagation step
             dW, dV = self.gradients(x, y, W, V)
+
+            # update weights
             W = W - lr * dW
             V = V - lr * dV
             t += 1
 
-            if verbose and (t % epochs) == 0:
-                print(str(epoch) + "\t" + str(np.linalg.norm(dW).item()) + "\t" + str(accuracy_score(np.argmax(Y, axis=1), self.predict(X, W, V))))
+            if verbose and (t % epochs) == 0: # report generation
+                print(str(epoch) + "\t" + str(np.linalg.norm(dW).item()) + "\t" + str(
+                    accuracy_score(np.argmax(Y, axis=1), self.predict(X, W, V))))
                 epoch += 1
 
         return W, V
@@ -124,9 +129,9 @@ X_test, y_test = preprocess(X_test, y_test)
 
 NN = NN1(relu, d_relu)
 hiddens = [6, 20, 50]
-max_iters = [500, 1000, 1500]
-# for m in max_iters:
-W, V = NN.GD(X_train, y_train, 20, lr=0.01, max_iters=1200, batch_size=1000, verbose=True)
+m_iters = [500, 1000, 1500]
+# for m in m_iters:
+W, V = NN.train(X_train, y_train, 20, batch_size=1000, lr=0.01, max_iters=1200, verbose=True)
 yh = NN.predict(X_test, W, V)
 acc = accuracy_score(np.argmax(y_test, axis=1), yh)
 print(acc)
